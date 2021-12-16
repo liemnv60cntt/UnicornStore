@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container-detail {
+  position: relative;
+  width: 25em;
+  height: 500px;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: black;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  font-weight: 600;
+  top: 0;
+}
+
+.row-detail:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column-detail {
+  float: left;
+  width: 16.66%;
+  margin-right: 1em;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+  width: 5em;
+  height: 4em;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+.img-detail{
+    width: 25em;
+    height: 20em;
+    border-radius: 0.5em;
+}
+.sidebar-detail{
+  max-height: 30em;
+  overflow-y: auto;
+}
+.desc-detail{
+  max-height: 28em;
+  overflow-y: auto;
+}
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+/* Style rating form */
+.progress-label-left {
+  float: left;
+  margin-right: 0.5em;
+  line-height: 1em;
+}
+
+.progress-label-right {
+  float: right;
+  margin-left: 0.3em;
+  line-height: 1em;
+}
+
+.star-light {
+  color: #e9ecef;
+}
+.star-light-2 {
+  color: #e9ecef;
+}
+
+#review_content {
+  max-height: 30em;
+  overflow-x: hidden;
+  /* Hide horizontal scrollbar */
+  overflow-y: auto;
+  /* Add vertical scrollbar */
+  padding: 10px 20px 20px 20px;
+  margin-bottom: 50px;
+  border-top: 2px solid #00CED1;
+  border-bottom: 2px solid #00CED1;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00CED1;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1E90FF;
+}
