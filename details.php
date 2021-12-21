@@ -6,7 +6,7 @@ include "./includes/header.php";
 $productID = (isset($_GET['productID']) && $_GET['productID'] != null) ? $_GET['productID'] : '';
 $_SESSION['prodID'] = (isset($_GET['productID']) && $_GET['productID'] != null) ? $_GET['productID'] : '';
 if ($productID == '')
-    echo "<script>window.location ='index.php'</script>";
+    echo "<script>window.location ='404.php'</script>";
 $details_prod = $prod->get_details($productID);
 if ($details_prod) {
     $result_details = $details_prod->fetch_assoc();
@@ -109,10 +109,17 @@ if ($details_prod) {
                     <td>
                         <div class="input-group mt-3 w-50">
                             <button class="input-group-text" onclick="upOrDown(false);"><i class='fas fa-minus' style='font-size:14px'></i></button>
-                            <input type="number" id="num" class="form-control bg-light text-center w-25" value="1" onblur="limitNum();">
-                            <input type="hidden" id="remain" value="<?php echo $result_details['productRemain']; ?>">
+                            <input type="number" name="quantity" id="quantity_detail" class="form-control bg-light text-center w-25" value="1" onblur="limitNum();">
+                            <input type="hidden" id="remain_detail" value="<?php echo $result_details['productRemain']; ?>">
                             <button class="input-group-text" onclick="upOrDown(true);"><i class='fas fa-plus' style='font-size:14px'></i></button>
                         </div>
+                        <!-- Thêm vào giỏ hàng -->
+            	        <input type="hidden" name="hidden_name" id="name_detail" value="<?php echo $result_details['productName'] ?>" />
+            	        <input type="hidden" name="hidden_price" id="price_detail" value="<?php echo $result_details['current_price'] ?>" />
+                        <input type="hidden" name="hidden_image" id="image_detail" value="<?php echo $result_details['image_1'] ?>" />
+                        <input type="hidden" name="hidden_remain" id="remain_detail" value="<?php echo $result_details['productRemain'] ?>" />
+                        <input type="hidden" name="hidden_price_old" id="price_old_detail" value="<?php echo $result_details['old_price'] ?>" />
+                        <!-- Kết thúc thêm giỏ hàng -->
                     </td>
                 </tr>
                 <tr>
@@ -123,8 +130,9 @@ if ($details_prod) {
                 </tr>
             </table>
             <div class="mt-2 mb-4">
-                <button class="btn btn-outline-primary mx-1"><i class='fas fa-cart-plus'></i> Thêm vào giỏ hàng</button>
-                <button class="btn btn-primary mx-1 px-5">Mua ngay</button>
+                <button class="btn btn-outline-primary mx-1 add_to_cart_from_detail" name="add_to_cart_from_detail" id="<?php echo $result_details['productID'] ?>"><i class='fas fa-cart-plus'></i> Thêm vào giỏ hàng</button>
+                <a href="cart_page.php" class="btn btn-primary mx-1 px-5 buy_now" name="buy_now" id="<?php echo $result_details['productID'] ?>">Mua ngay</a>
+                <!-- <button class="btn btn-primary mx-1 px-5">Mua ngay</button> -->
             </div>
 
 
@@ -243,7 +251,29 @@ if ($details_prod) {
 <?php
 }
 ?>
+<!-- Modal -->
+<!-- The Modal -->
+<div class="modal fade" id="addCartSuccess">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Thông báo</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+    <!-- Modal body -->
+      <div class="modal-body" style="font-size: larger;">
+            Thêm sản phẩm vào giỏ hàng thành công!
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <?php
 include "./includes/footer.php";
 ?>

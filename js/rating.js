@@ -46,7 +46,7 @@ $(document).ready(function() {
             return false;
         } else {
             $.ajax({
-                url: "submit_rating.php",
+                url: "includes/submit_rating.php",
                 method: "POST",
                 data: {
                     rating_data: rating_data,
@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     function load_rating_data() {
         $.ajax({
-            url: "submit_rating.php",
+            url: "includes/submit_rating.php",
             method: "POST",
             data: {
                 action: 'load_data'

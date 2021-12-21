@@ -330,6 +330,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
                         ?>
 
                         <div class="d-flex justify-content-center mt-3">
+                            <a href="product_add.php" class="btn btn-secondary shadow mr-2">Làm mới</a>
                             <input type="submit" name="add" value="Thêm sản phẩm" class="btn btn-primary shadow">
                         </div>
                         <div class="d-flex justify-content-center mt-2">

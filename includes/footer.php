@@ -69,26 +69,26 @@
   </script>
   <script>
     function limitNum(){
-      var n = Math.round(document.getElementById('num').value,10);
-      var remain = Math.round(document.getElementById('remain').value,10);
-      document.getElementById('num').value = n
+      var n = Math.round(document.getElementById('quantity_detail').value,10);
+      var remain = Math.round(document.getElementById('remain_detail').value,10);
+      document.getElementById('quantity_detail').value = n
       // console.log(remain);
       if(!n){
-        document.getElementById('num').value = 1;
+        document.getElementById('quantity_detail').value = 1;
       }
       if(n>remain){
-        document.getElementById('num').value = remain;
+        document.getElementById('quantity_detail').value = remain;
       }
       if(n<1){
-        document.getElementById('num').value = 1;
+        document.getElementById('quantity_detail').value = 1;
       }
       return;
     }
     function upOrDown(isUp) {
-      var g = parseInt(document.getElementById('num').value,10);
-      var r = parseInt(document.getElementById('remain').value,10);
+      var g = parseInt(document.getElementById('quantity_detail').value,10);
+      var r = parseInt(document.getElementById('remain_detail').value,10);
       g = isUp ? (++g > r ? r : g) : (--g < 1 ? 1 : g)
-      document.getElementById('num').value = g;
+      document.getElementById('quantity_detail').value = g;
       return;
     }
   </script>
@@ -96,6 +96,8 @@
   <script src="./js/sidebar.js"></script>
   <script src="./js/details.js"></script>
   <script src="./js/rating.js"></script>
+  <script src="./js/404.js"></script>
+  <script src="./js/cart.js"></script>
 </body>
 
 </html>
