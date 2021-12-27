@@ -3,7 +3,13 @@ $page_title = "Giỏ hàng";
 include "./includes/header.php";
 ?>
 		<div class="container">
-			<h3 align="center" class="text-primary">Giỏ hàng</h3>
+			<div>
+				<i class='fas fa-home text-primary'></i>
+				<a href="index.php" class="text-decoration-none text-primary">Trang chủ</a>
+				<i class='fas fa-chevron-right text-secondary' style="font-size: 12px;"></i>
+				<span class="text-dark">Giỏ hàng</span>
+			</div>
+			
 
 			<span id="cart_details"></span>
 			<!-- <div>
@@ -17,7 +23,7 @@ include "./includes/header.php";
 				</div>
 			</div> -->
 		</div>
-        <a href="index.php">Trang chủ</a>
+        
 
 
 <?php

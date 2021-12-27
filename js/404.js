@@ -11,11 +11,14 @@ function randomNum()
                 if(i > 40)
                 {
                     clearInterval(loop3);
-                    selector3.textContent = 4;
+                    if(selector3 != null)
+                        selector3.textContent = 4;
                 }else
                 {
-                    selector3.textContent = randomNum();
-                    i++;
+                    if(selector3 != null){
+                        selector3.textContent = randomNum();
+                        i++;
+                    }
                 }
             }, time);
             loop2 = setInterval(function()
@@ -24,11 +27,14 @@ function randomNum()
                 if(i > 80)
                 {
                     clearInterval(loop2);
-                    selector2.textContent = 0;
+                    if(selector2 != null)
+                        selector2.textContent = 0;
                 }else
                 {
-                    selector2.textContent = randomNum();
-                    i++;
+                    if(selector2 != null){
+                        selector2.textContent = randomNum();
+                        i++;
+                    }
                 }
             }, time);
             loop1 = setInterval(function()
@@ -37,10 +43,13 @@ function randomNum()
                 if(i > 100)
                 {
                     clearInterval(loop1);
-                    selector1.textContent = 4;
+                    if(selector1 != null)
+                        selector1.textContent = 4;
                 }else
                 {
-                    selector1.textContent = randomNum();
-                    i++;
+                    if(selector1 != null){
+                        selector1.textContent = randomNum();
+                        i++;
+                    }
                 }
             }, time);

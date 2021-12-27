@@ -17,7 +17,7 @@
                         if($prodtype_list){
                             while($result_type = $prodtype_list->fetch_assoc()){
                                 ?>
-                                <li><a href="#" class="type-list"><span class="fa fa-chevron-right mr-2"></span> <?php echo $result_type['typeName'] ?></a></li>
+                                <li><a href="search_by_type.php?typeID=<?php echo $result_type['typeID'] ?>" class="type-list"><span class="fa fa-chevron-right mr-2"></span> <?php echo $result_type['typeName'] ?></a></li>
                                 <?php
                             }
                         }

@@ -58,6 +58,13 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
+		public function get_type_detail_byID($typeID){
+			$query = "SELECT product_type.*, category.* 
+				FROM product_type INNER JOIN category ON product_type.cateID = category.cateID
+				WHERE typeID = $typeID";
+			$result = $this->db->select($query);
+			return $result;
+		}
 		public function update_type($typeName, $cateID, $typeID){
 
 			$typeName = $this->fm->validation($typeName);
@@ -96,17 +103,26 @@
 			}
 			
 		}
-		
+		public function get_product_by_type($typeID){
+			$query = "SELECT product.*, brand.brandName
+			 FROM product INNER JOIN brand ON product.brandID = brand.brandID
+			  WHERE typeID='$typeID' order by typeID desc";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function get_distinct_product_brandName_by_type($typeID){
+			$query = "SELECT DISTINCT brand.brandName
+			 FROM product INNER JOIN brand ON product.brandID = brand.brandID
+			  WHERE product.typeID='$typeID' order by brand.brandName asc";
+			$result = $this->db->select($query);
+			return $result;
+		}
 		public function show_type_fontend(){
 			$query = "SELECT * FROM tbl_type order by catId desc";
 			$result = $this->db->select($query);
 			return $result;
 		}
-		public function get_product_by_cat($typeID){
-			$query = "SELECT * FROM tbl_product WHERE catId='$typeID' order by catId desc LIMIT 8";
-			$result = $this->db->select($query);
-			return $result;
-		}
+		
 		public function get_name_by_cat($typeID){
 			$query = "SELECT tbl_product.*,tbl_type.typeName,tbl_type.catId FROM tbl_product,tbl_type WHERE tbl_product.catId=tbl_type.catId AND tbl_product.catId ='$typeID' LIMIT 1";
 			$result = $this->db->select($query);

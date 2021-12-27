@@ -3,20 +3,21 @@ include 'lib/session.php';
 Session::init();
 ?>
 <?php
-	include_once ('lib/database.php');
-	include_once ('helpers/format.php');
-    //Tự động include các class trong thư mục classes
-    spl_autoload_register(function($className){
-        include_once "classes/".$className.".php";
-    });
-    $db = new Database();
-	$fm = new Format();
-	$ct = new Cart();
-	$us = new User();
-	$br = new Brand();
-	$cate = new Category();
-    $prodtype = new ProductType();
-	$prod = new Product();
+include_once('lib/database.php');
+include_once('helpers/format.php');
+//Tự động include các class trong thư mục classes
+spl_autoload_register(function ($className) {
+    include_once "classes/" . $className . ".php";
+});
+$db = new Database();
+$fm = new Format();
+$ct = new Cart();
+$us = new User();
+$br = new Brand();
+$cate = new Category();
+$prodtype = new ProductType();
+$prod = new Product();
+$ss= new Session();
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,7 @@ Session::init();
     <link rel="stylesheet" type="text/css" href="./css/style_sidebar.css">
     <link rel="stylesheet" type="text/css" href="./css/style_detail.css">
     <link rel="stylesheet" type="text/css" href="./css/style_404.css">
+    <link rel="stylesheet" type="text/css" href="./css/style_filter.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -43,7 +45,7 @@ Session::init();
     <!-- Header -->
     <nav class="navbar navbar-expand-lg justify-content-center shadow" id="navbar">
         <div class="container-fluid" style="max-width: 1400px;">
-            
+
             <!-- <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <i class='fas fa-tasks' style='font-size:30px'></i>
             </button> -->
@@ -72,10 +74,12 @@ Session::init();
             </ul> -->
 
             <div class="collapse navbar-collapse" id="mynavbar">
-
-                <form class="d-flex me-auto input-group shadow-sm rounded" style="max-width: 600px;">
-                    <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm">
-                    <button class="btn btn-primary search-btn" type="button">
+                <?php 
+                $prodNameKeyword = (isset($_GET['prodName']) && $_GET['prodName']!="") ? $_GET['prodName'] : "";
+                ?>
+                <form action="search_by_name.php" method="GET" class="d-flex me-auto input-group shadow-sm rounded" style="max-width: 600px;">
+                    <input class="form-control" name="prodName" type="text" value="<?php echo $prodNameKeyword ?>" placeholder="Nhập tên sản phẩm cần tìm...">
+                    <button class="btn btn-primary search-btn" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
@@ -86,19 +90,60 @@ Session::init();
                             <span class='badge badge-warning' id='lblCartCount'></span> Giỏ hàng</a>
                     </li>
                     <li class="nav-item mt-1 dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:void(0)">
-                            <i class='fas fa-user-alt' style='font-size:20px'></i> Tài khoản</a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item text-dark" href="#">Action</a></li>
-                                <li><a class="dropdown-item text-dark" href="#">Another action</a></li>
-                                <li><a class="dropdown-item text-dark" href="#">Something else here</a></li>
-                                <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="#"><i class='fas fa-sign-out-alt'></i> Đăng xuất</a></li>
-                            </ul>
+                        <?php
+                        if (Session::get('userlogin') == true) {
+                            echo '<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:void(0)">
+                                <i class="fas fa-user-check" style="font-size:20px"></i> ' . $fm->textShorten(Session::get('username'), 15) . '</a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item text-dark" href="#">Thông tin tài khoản</a></li>
+                                    <li><a class="dropdown-item text-dark" href="#">Đơn hàng</a></li>
+                                    <li><a class="dropdown-item text-dark" href="#">Yêu thích</a></li>
+                                    <li><a class="dropdown-item text-dark" href="#">So sánh</a></li>
+                                    <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                </ul>
+                                
+                                ';
+                        } else {
+                            echo '<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:void(0)">
+                                <i class="fas fa-user-alt" style="font-size:20px"></i> Tài khoản</a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item text-dark" href="./login/login-user.php">Đăng nhập</a></li>
+                                    <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="./login/signup-user.php">Đăng ký</a></li>
+                                </ul>';
+                        }
+                        ?>
+
+
                     </li>
                 </ul>
-                
+
             </div>
         </div>
     </nav>
+    <!-- The Logout Modal -->
+    <div class="modal fade" id="logoutModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông báo</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body fs-4">
+                    Bạn có chắc chắn muốn đăng xuất?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="./login/logout-user.php">Đăng xuất</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <!-- Content -->
     <div class="container-fluid" style="margin-top:10em; max-width: 1400px;">

@@ -98,6 +98,7 @@
   <script src="./js/rating.js"></script>
   <script src="./js/404.js"></script>
   <script src="./js/cart.js"></script>
+  <script src="./js/filter.js"></script>
 </body>
 
 </html>

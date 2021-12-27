@@ -2,6 +2,7 @@
 $page_title = "Trang chủ";
 include "./includes/header.php";
 ?>
+
 <div class="row">
     <div class="col-md-3 col-12 px-4 mb-3">
         <div class="sidebar-index p-0">
@@ -187,7 +188,7 @@ include "./includes/header.php";
 </div>
 
 <!-- Modal -->
-<!-- The Modal -->
+<!-- The Modal Add Cart Success -->
 <div class="modal fade" id="addCartSuccess">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

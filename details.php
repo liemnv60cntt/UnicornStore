@@ -12,7 +12,12 @@ if ($details_prod) {
     $result_details = $details_prod->fetch_assoc();
 
 ?>
-
+    <div class="mb-1">
+        <i class='fas fa-home text-primary'></i>
+        <a href="index.php" class="text-decoration-none text-primary">Trang chủ</a>
+        <i class='fas fa-chevron-right text-secondary' style="font-size: 12px;"></i>
+        <span class="text-dark">Giỏ hàng</span>
+    </div>
     <div class="row px-sm-3 shadow mb-3 pt-3" style="background-color: #FFF;border-radius: 0.5em;">
         <div class="col-md-4">
             <div class="container-detail mx-sm-0 mx-auto">
@@ -114,8 +119,8 @@ if ($details_prod) {
                             <button class="input-group-text" onclick="upOrDown(true);"><i class='fas fa-plus' style='font-size:14px'></i></button>
                         </div>
                         <!-- Thêm vào giỏ hàng -->
-            	        <input type="hidden" name="hidden_name" id="name_detail" value="<?php echo $result_details['productName'] ?>" />
-            	        <input type="hidden" name="hidden_price" id="price_detail" value="<?php echo $result_details['current_price'] ?>" />
+                        <input type="hidden" name="hidden_name" id="name_detail" value="<?php echo $result_details['productName'] ?>" />
+                        <input type="hidden" name="hidden_price" id="price_detail" value="<?php echo $result_details['current_price'] ?>" />
                         <input type="hidden" name="hidden_image" id="image_detail" value="<?php echo $result_details['image_1'] ?>" />
                         <input type="hidden" name="hidden_remain" id="remain_detail" value="<?php echo $result_details['productRemain'] ?>" />
                         <input type="hidden" name="hidden_price_old" id="price_old_detail" value="<?php echo $result_details['old_price'] ?>" />
@@ -219,7 +224,7 @@ if ($details_prod) {
     <!-- End form rating -->
     <!-- Modal review -->
     <div id="review_modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Gửi đánh giá</h5>
@@ -235,7 +240,7 @@ if ($details_prod) {
                     </h4>
                     <div class="form-group">
                         <!-- <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Nhập tên..." /> -->
-                        <input type="hidden" name="customer_ID" id="customer_ID" value="2">
+                        <input type="hidden" name="customer_ID" id="customer_ID" value="<?php echo $ss->get('userid') ?>">
                         <input type="hidden" name="product_ID" id="product_ID" value="<?php echo $productID ?>">
                     </div>
                     <div class="form-group mt-2">
@@ -248,32 +253,104 @@ if ($details_prod) {
             </div>
         </div>
     </div>
+    <!-- End Modal Review -->
 <?php
 }
 ?>
 <!-- Modal -->
-<!-- The Modal -->
+<!-- The Modal Add Cart Success -->
 <div class="modal fade" id="addCartSuccess">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Thông báo</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-    <!-- Modal body -->
-      <div class="modal-body" style="font-size: larger;">
-            Thêm sản phẩm vào giỏ hàng thành công!
-      </div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-      </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="font-size: larger;">
+                Thêm sản phẩm vào giỏ hàng thành công!
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
 
+        </div>
     </div>
-  </div>
 </div>
+<!-- End Modal Add Cart -->
+<!-- The Modal Save Review -->
+<div class="modal fade" id="savedReview">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="font-size: larger;">
+                Đánh giá sản phẩm thành công!
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Modal Save Review -->
+<!-- The Modal Error Review Blank -->
+<div class="modal fade" id="reviewBlank">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="font-size: larger;">
+                Gửi đánh giá không thành công! Vui lòng nhập đầy đủ thông tin!
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Modal Error Review Blank -->
+<!-- The Modal Error Review Not Logged in -->
+<div class="modal fade" id="notLoggedIn">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="font-size: larger;">
+                Bạn chưa đăng nhập tài khoản!
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Modal Error Review Not Logged in -->
+
 <?php
 include "./includes/footer.php";
 ?>

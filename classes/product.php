@@ -18,9 +18,20 @@
 			$this->db = new Database();
 			$this->fm = new Format();
 		}
-		public function search_product($tukhoa){
-			$tukhoa = $this->fm->validation($tukhoa);
-			$query = "SELECT * FROM tbl_product WHERE productName LIKE '%$tukhoa%'";
+		public function search_product($keyword){
+			$keyword = $this->fm->validation($keyword);
+			$query = "SELECT product.*, brand.brandName
+			FROM product INNER JOIN brand ON product.brandID = brand.brandID 
+			WHERE product.productName LIKE '%$keyword%' order by product.productID desc";
+			$result = $this->db->select($query);
+			return $result;
+
+		}
+		public function get_distinct_search_product_brandName($keyword){
+			$keyword = $this->fm->validation($keyword);
+			$query = "SELECT DISTINCT brand.brandName
+			FROM product INNER JOIN brand ON product.brandID = brand.brandID 
+			WHERE product.productName LIKE '%$keyword%' order by brand.brandName asc";
 			$result = $this->db->select($query);
 			return $result;
 
@@ -425,16 +436,7 @@
 				
 			}
 		}
-		public function show_slider(){
-			$query = "SELECT * FROM tbl_slider where type='1' order by sliderId desc";
-			$result = $this->db->select($query);
-			return $result;
-		}
-		public function show_slider_list(){
-			$query = "SELECT * FROM tbl_slider order by sliderId desc";
-			$result = $this->db->select($query);
-			return $result;
-		}
+		
 		public function show_product(){
 
 			$query = "
@@ -450,24 +452,7 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
-		public function update_type_slider($id,$type){
-
-			$type = mysqli_real_escape_string($this->db->link, $type);
-			$query = "UPDATE tbl_slider SET type = '$type' where sliderId='$id'";
-			$result = $this->db->update($query);
-			return $result;
-		}
-		public function del_slider($id){
-			$query = "DELETE FROM tbl_slider where sliderId = '$id'";
-			$result = $this->db->delete($query);
-			if($result){
-				$alert = "<span class='success'>Slider Deleted Successfully</span>";
-				return $alert;
-			}else{
-				$alert = "<span class='error'>Slider Deleted Not Success</span>";
-				return $alert;
-			}
-		}
+		
 		
 		public function delete_product($id){
 			$query = "DELETE FROM product where productID = '$id'";
@@ -481,16 +466,7 @@
 			}
 			
 		}
-		public function del_wlist($proid,$customer_id){
-			$query = "DELETE FROM tbl_wishlist where productId = '$proid' AND customer_id='$customer_id'";
-			$result = $this->db->delete($query);
-			return $result;
-		}
-		public function getproductbyId($id){
-			$query = "SELECT * FROM tbl_product where productId = '$id'";
-			$result = $this->db->select($query);
-			return $result;
-		}
+		
 		//END BACKEND 
 		public function get_featured_product(){
 			$query = "SELECT product.*, brand.brandName FROM product 
@@ -510,23 +486,7 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
-		public function getproduct_new(){
-			$sp_tungtrang = 4;
-			if(!isset($_GET['trang'])){
-				$trang = 1;
-			}else{
-				$trang = $_GET['trang'];
-			}
-			$tung_trang = ($trang-1)*$sp_tungtrang;
-			$query = "SELECT * FROM tbl_product order by productId desc LIMIT $tung_trang,$sp_tungtrang";
-			$result = $this->db->select($query);
-			return $result;
-		} 
-		public function get_all_product(){
-			$query = "SELECT * FROM tbl_product";
-			$result = $this->db->select($query);
-			return $result;
-		} 
+		
 		public function get_details($id){
 			$query = "
 
@@ -552,6 +512,61 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
+		public function update_type_slider($id,$type){
+
+			$type = mysqli_real_escape_string($this->db->link, $type);
+			$query = "UPDATE tbl_slider SET type = '$type' where sliderId='$id'";
+			$result = $this->db->update($query);
+			return $result;
+		}
+		public function del_slider($id){
+			$query = "DELETE FROM tbl_slider where sliderId = '$id'";
+			$result = $this->db->delete($query);
+			if($result){
+				$alert = "<span class='success'>Slider Deleted Successfully</span>";
+				return $alert;
+			}else{
+				$alert = "<span class='error'>Slider Deleted Not Success</span>";
+				return $alert;
+			}
+		}
+		public function show_slider(){
+			$query = "SELECT * FROM tbl_slider where type='1' order by sliderId desc";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function show_slider_list(){
+			$query = "SELECT * FROM tbl_slider order by sliderId desc";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function del_wlist($proid,$customer_id){
+			$query = "DELETE FROM tbl_wishlist where productId = '$proid' AND customer_id='$customer_id'";
+			$result = $this->db->delete($query);
+			return $result;
+		}
+		public function getproductbyId($id){
+			$query = "SELECT * FROM tbl_product where productId = '$id'";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function getproduct_new(){
+			$sp_tungtrang = 4;
+			if(!isset($_GET['trang'])){
+				$trang = 1;
+			}else{
+				$trang = $_GET['trang'];
+			}
+			$tung_trang = ($trang-1)*$sp_tungtrang;
+			$query = "SELECT * FROM tbl_product order by productId desc LIMIT $tung_trang,$sp_tungtrang";
+			$result = $this->db->select($query);
+			return $result;
+		} 
+		public function get_all_product(){
+			$query = "SELECT * FROM tbl_product";
+			$result = $this->db->select($query);
+			return $result;
+		} 
 		public function getLastestDell(){
 			$query = "SELECT * FROM tbl_product WHERE brandId = '6' order by productId desc LIMIT 1";
 			$result = $this->db->select($query);

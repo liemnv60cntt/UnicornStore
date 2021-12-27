@@ -41,8 +41,14 @@ $(document).ready(function() {
         var customer_ID = $('#customer_ID').val();
         var product_ID = $('#product_ID').val();
         var review = $('#review').val();
-        if (review == '' || customer_ID == '' || product_ID =='') {
-            alert("Vui lòng nhập đầy đủ thông tin!");
+        if(customer_ID == ''){
+            $('#review_modal').modal('hide');
+            $('#notLoggedIn').modal('show');
+            return false;
+        }
+        else if (review == '' || product_ID =='' || rating_data == 0) {
+            $('#review_modal').modal('hide');
+            $('#reviewBlank').modal('show');
             return false;
         } else {
             $.ajax({
@@ -57,7 +63,8 @@ $(document).ready(function() {
                 success: function(data) {
                     $('#review_modal').modal('hide');
                     load_rating_data();
-                    alert(data);
+                    $('#savedReview').modal('show');
+                    // alert(data);
                 }
             });
         }
