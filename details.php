@@ -219,7 +219,9 @@ if ($details_prod) {
                 </div>
             </div>
         </div>
-        <div class="mt-5" id="review_content"></div>
+        <div class="mt-5" id="review_content">
+            <h5 class="text-center text-secondary">Chưa có đánh giá</h5>
+        </div>
     </div>
     <!-- End form rating -->
     <!-- Modal review -->

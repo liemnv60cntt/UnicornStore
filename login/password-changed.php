@@ -6,6 +6,7 @@ include "./header_login.php";
 if ($_SESSION['info'] == false) {
     header('Location: login-user.php');
 }
+
 ?>
 
 <div class="row mt-2 mx-2">

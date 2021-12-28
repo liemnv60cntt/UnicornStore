@@ -20,7 +20,12 @@ include "./includes/header.php";
 
 <!-- Sản phẩm nổi bật -->
 <div class="row mt-5 mx-auto p-2" style="max-width: 1200px;">
-    <h3>Sản phẩm nổi bật</h3>
+    <div>
+        <h3 class="float-start">Sản phẩm nổi bật</h3>
+        <i class="text-warning float-end mt-2" style="font-weight: 500;">Xem thêm 
+            <i class='fas fa-angle-double-right' style='font-size:12px'></i></i>
+    </div>
+    
     <?php
     $featured_products = $prod->get_featured_product();
     if ($featured_products) {

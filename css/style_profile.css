@@ -1,0 +1,22 @@
+.labels {
+  font-size: 11px;
+}
+.btn-profile {
+  width: 10em;
+}
+.btn-profile:hover {
+  background: rgb(144, 208, 169);
+  background: linear-gradient(
+    0deg,
+    rgba(144, 208, 169, 1) 0%,
+    rgba(119, 196, 166, 1) 100%
+  );
+  cursor: pointer;
+  border: solid 1px #ba68c8;
+  transform: translateX(-4%);
+  transition: 200ms;
+}
+.btn-logout {
+  width: 10em;
+}
+

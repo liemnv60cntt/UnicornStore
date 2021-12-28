@@ -162,6 +162,7 @@ $(document).ready(function() {
 
                     $('#review_content').html(html);
                 }
+                
                 //Hiển thị màu 5 star theo điểm trung bình
                 var _html = '';
                 _html += '<div>';

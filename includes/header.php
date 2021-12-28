@@ -33,6 +33,7 @@ $ss= new Session();
     <link rel="stylesheet" type="text/css" href="./css/style_detail.css">
     <link rel="stylesheet" type="text/css" href="./css/style_404.css">
     <link rel="stylesheet" type="text/css" href="./css/style_filter.css">
+    <link rel="stylesheet" type="text/css" href="./css/style_profile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -92,17 +93,21 @@ $ss= new Session();
                     <li class="nav-item mt-1 dropdown">
                         <?php
                         if (Session::get('userlogin') == true) {
+                            $cusName = $us->get_users_by_id($ss->get('userid'));
+                            if($cusName){
+                                $result_cusName = $cusName->fetch_assoc();
                             echo '<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:void(0)">
-                                <i class="fas fa-user-check" style="font-size:20px"></i> ' . $fm->textShorten(Session::get('username'), 15) . '</a>
+                                <i class="fas fa-user-check" style="font-size:20px"></i> ' . $fm->textShorten($result_cusName['customerName'], 15) . '</a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item text-dark" href="#">Thông tin tài khoản</a></li>
-                                    <li><a class="dropdown-item text-dark" href="#">Đơn hàng</a></li>
-                                    <li><a class="dropdown-item text-dark" href="#">Yêu thích</a></li>
-                                    <li><a class="dropdown-item text-dark" href="#">So sánh</a></li>
+                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="user_profile.php"><i class="fas fa-user-cog mt-1"></i>&nbsp;Thông tin tài khoản</a></li>
+                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="#"><i class="fas fa-truck mt-1"></i>&nbsp;Đơn hàng</a></li>
+                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="#"><i class="fas fa-heart mt-1"></i>&nbsp;&nbsp;Yêu thích</a></li>
+                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="#"><i class="fas fa-compress-alt mt-1"></i>&nbsp;&nbsp;So sánh</a></li>
                                     <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                                 </ul>
                                 
                                 ';
+                            }
                         } else {
                             echo '<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="javascript:void(0)">
                                 <i class="fas fa-user-alt" style="font-size:20px"></i> Tài khoản</a>
@@ -111,6 +116,7 @@ $ss= new Session();
                                     <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="./login/signup-user.php">Đăng ký</a></li>
                                 </ul>';
                         }
+                    
                         ?>
 
 

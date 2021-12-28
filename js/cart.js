@@ -13,6 +13,7 @@ $(document).ready(function(){
 			success:function(data)
 			{
 				$('#cart_details').html(data.cart_details);
+				$('#cart_for_payment').html(data.cart_for_payment);
 				$('.total_price').text(data.total_price);
 				$('.badge').text(data.total_item);
 			}
