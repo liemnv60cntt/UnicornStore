@@ -1,5 +1,5 @@
 <?php
-$page_title = "Thanh toán";
+$page_title = "Đặt hàng";
 include "./includes/header.php";
 ?>
 <?php

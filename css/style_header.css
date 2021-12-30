@@ -98,7 +98,7 @@ body {
 .about-color {
   color: black;
 }
-.badge {
+.badge-cart {
   padding-left: 9px;
   padding-right: 9px;
   -webkit-border-radius: 9px;
@@ -175,4 +175,209 @@ body {
 .navbar-toggler .hamburger-toggle .hamburger.active span:last-child {
   top: 45%;
   transform: rotate(-45deg);
+}
+/* Style Order page */
+.btn-order {
+  width: 6em;
+}
+.order-info-list {
+  max-height: 50em;
+  overflow: auto;
+}
+.badge-order {
+  background-color: #ff0000;
+}
+/* Style Order Tracking */
+.bs5-order-tracking {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: #878788;
+  padding-left: 0px;
+  margin-top: 30px;
+}
+
+.bs5-order-tracking li {
+  list-style-type: none;
+  font-size: 13px;
+  width: 16.66%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+  color: #878788;
+  text-align: center;
+}
+
+.bs5-order-tracking li:first-child:before {
+  margin-left: 15px !important;
+  padding-left: 11px !important;
+  text-align: left !important;
+}
+
+.bs5-order-tracking li:last-child:before {
+  margin-right: 5px !important;
+  padding-right: 11px !important;
+  text-align: right !important;
+}
+
+.bs5-order-tracking li > div {
+  color: #fff;
+  width: 29px;
+  text-align: center;
+  line-height: 29px;
+  display: block;
+  font-size: 12px;
+  background: #878788;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.bs5-order-tracking li:after {
+  content: "";
+  width: 150%;
+  height: 2px;
+  background: #878788;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 15px;
+  z-index: -1;
+}
+
+.bs5-order-tracking li:first-child:after {
+  left: 50%;
+}
+
+.bs5-order-tracking li:last-child:after {
+  left: 0% !important;
+  width: 0% !important;
+}
+
+.bs5-order-tracking li.active {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.bs5-order-tracking li.active > div {
+  background: #dc3545;
+}
+
+.bs5-order-tracking li.active:after {
+  background: #dc3545;
+}
+
+.card-timeline {
+  background-color: #fff;
+  z-index: 0;
+}
+/* Tracking 2 - For Cancelled Status */
+.bs5-order-tracking-2 {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: #878788;
+  padding-left: 0px;
+  margin-top: 30px;
+}
+
+.bs5-order-tracking-2 li {
+  list-style-type: none;
+  font-size: 13px;
+  width: 50%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+  color: #878788;
+  text-align: center;
+}
+
+.bs5-order-tracking-2 li:first-child:before {
+  margin-left: 15px !important;
+  padding-left: 11px !important;
+  text-align: left !important;
+}
+
+.bs5-order-tracking-2 li:last-child:before {
+  margin-right: 5px !important;
+  padding-right: 11px !important;
+  text-align: right !important;
+}
+
+.bs5-order-tracking-2 li > div {
+  color: #fff;
+  width: 29px;
+  text-align: center;
+  line-height: 29px;
+  display: block;
+  font-size: 12px;
+  background: #878788;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.bs5-order-tracking-2 li:after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: #878788;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 15px;
+  z-index: -1;
+}
+
+.bs5-order-tracking-2 li:first-child:after {
+  left: 50%;
+}
+
+.bs5-order-tracking-2 li:last-child:after {
+  left: 0% !important;
+  width: 0% !important;
+}
+
+.bs5-order-tracking-2 li.active {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.bs5-order-tracking-2 li.active > div {
+  background: #dc3545;
+}
+
+.bs5-order-tracking-2 li.active:after {
+  background: #dc3545;
+}
+
+/* Style Payment Success */
+
+.success-title {
+  color: #88b04b;
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.success-note {
+  color: #404f5e;
+  font-size: 20px;
+  margin: 0;
+}
+.checkmark {
+  color: #9abc66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left: -15px;
+}
+.card-success {
+  background: white;
+  padding: 60px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #c8d0d8;
+  display: inline-block;
+  margin: 0 auto;
+}
+.checkmark-area {
+  border-radius: 200px;
+  height: 200px;
+  width: 200px;
+  background: #f8faf5;
+  margin: 0 auto;
 }

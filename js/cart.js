@@ -15,7 +15,7 @@ $(document).ready(function(){
 				$('#cart_details').html(data.cart_details);
 				$('#cart_for_payment').html(data.cart_for_payment);
 				$('.total_price').text(data.total_price);
-				$('.badge').text(data.total_item);
+				$('.badge-cart').text(data.total_item);
 			}
 		});
 	}

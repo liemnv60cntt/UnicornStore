@@ -115,7 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_profile'])) {
     ?>
     <div class="col-md-4 rounded bg-white shadow">
         <div class="p-3 py-5">
-            <div class="d-flex justify-content-between align-items-center"><span>Quản lý đơn hàng:</span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-truck"></i>&nbsp;Đơn hàng</span></div><br>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>Quản lý đơn hàng:</span>
+                <a href="./order_info.php" class="text-decoration-none text-dark border px-3 p-1 btn-profile rounded shadow-sm">
+                    <i class="fas fa-truck"></i>&nbsp;Đơn hàng
+                </a>
+            </div><br>
             <div class="d-flex justify-content-between align-items-center"><span>Sản phẩm yêu thích:</span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-heart"></i>&nbsp;Yêu thích</span></div><br>
             <div class="d-flex justify-content-between align-items-center"><span>So sánh sản phẩm:</span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-compress-alt"></i>&nbsp;So sánh</span></div><br>
             <div class="d-flex justify-content-between align-items-center"><span>Đổi mật khẩu:</span>

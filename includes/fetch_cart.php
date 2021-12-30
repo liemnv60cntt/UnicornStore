@@ -1,11 +1,14 @@
 <?php
 include "../helpers/format.php";
+include "../classes/order.php";
 //fetch_cart.php
 
 session_start();
 $fmt = new Format();
+$odr = new Order();
 
 $total_price = 0;
+$temp_price = 0;
 $total_item = 0;
 $shipping_fee = 0;
 $shipping_fee_1 = 45000;
@@ -88,6 +91,7 @@ if (!empty($_SESSION["shopping_cart"])) {
 		</div>
 		';
 		$total_price = $total_price + ($values["product_quantity"] * $values["product_price"]);
+		$temp_price = $temp_price + ($values["product_quantity"] * $values["product_price"]);
 		$total_item = $total_item + 1;
 		if($total_price <= 200000){
 			$total_price += $shipping_fee_1;
@@ -105,6 +109,7 @@ if (!empty($_SESSION["shopping_cart"])) {
 	$output .= '
 	<div class="d-flex align-items-center justify-content-end shadow rounded-3 px-5 py-4 my-4 bg-white border-bottom border-primary border-3">  
         <div class="fw-bold mx-3">
+			Tạm tính: <span class="text-danger">' . number_format($temp_price, 0) . ' <span style="text-decoration: underline;">đ</span></span> <br>
 			Phí giao hàng: <span class="text-danger">' . number_format($shipping_fee, 0) . ' <span style="text-decoration: underline;">đ</span></span> <br>
 			Tổng thanh toán: <span class="text-danger">' . number_format($total_price, 0) . ' <span style="text-decoration: underline;">đ</span></span></div>  
 		<div>
@@ -194,6 +199,7 @@ if (!empty($_SESSION["shopping_cart"])) {
 }
 $output .= '</div>';
 //Cart for payment
+$get_order_id = $odr->get_new_order_id();
 $output_for_payment = '
 <div>
 	
@@ -201,6 +207,7 @@ $output_for_payment = '
 if (!empty($_SESSION["shopping_cart"])) {
 	foreach ($_SESSION["shopping_cart"] as $keys => $values) {
 		$output_for_payment .= '
+		<form action="success_payment.php" method="POST">
 		<div class="row bg-white shadow my-3 rounded-3 g-0 border-start border-primary border-3">
 			<div class="col-md-2 col-4 d-flex justify-content-center">
 				<img src="images/product_img/' . $values["product_image"] . '" alt="..." style="width: 8em;height: 7em;"/>
@@ -236,55 +243,36 @@ if (!empty($_SESSION["shopping_cart"])) {
 	$output_for_payment .= '
 	<div class="row g-0 bg-white shadow rounded-3 px-4 py-2 mb-2 border-end border-start border-primary border-3">
 		<label for="note" class="form-label">Ghi chú:</label>
-  		<textarea class="form-control" id="note" rows="3"></textarea>
+  		<textarea class="form-control" id="note" name="note" rows="2"></textarea>
 	</div>
 	<div class="row g-0 bg-white shadow rounded-3 px-3 py-4 border-bottom border-primary border-3">
 		<div class="col-sm-5"></div>
 		<div class="col-sm-5 d-flex align-items-center justify-content-center"> 
 			<div class="fw-bold mx-3">
+				Tạm tính: <span class="text-danger">' . number_format($temp_price, 0) . ' <span style="text-decoration: underline;">đ</span></span> <br>
 				Phí giao hàng: <span class="text-danger">' . number_format($shipping_fee, 0) . ' <span style="text-decoration: underline;">đ</span></span> <br>
 				Tổng thanh toán: <span class="text-danger">' . number_format($total_price, 0) . ' <span style="text-decoration: underline;">đ</span></span>
 			</div> 
 		</div>	
 
 		<div class="col-sm-2 d-flex align-items-center justify-content-center">
-			<button id="check_out_cart" class="btn btn-primary shadow mt-1" data-bs-toggle="modal" data-bs-target="#paymentModal">
+			<button type="submit" id="check_out_cart" name="order_now" class="btn btn-primary shadow mt-1">
 				<i class="fas fa-credit-card"></i> Đặt hàng
 			</button>
 		</div>
 	</div>
-	
+		<!-- Order Info -->
+			<input type="hidden" name="orderID" value="'.$get_order_id.'">
+			<input type="hidden" name="orderPrice" value="'.$total_price.'">
+
+
+		<!-- End Order Info -->
 			
 
-			<!-- The Payment Modal -->
-				<div class="modal fade" id="paymentModal">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-					</div>
-
-					<!-- Modal body -->
-					<div class="modal-body" style="font-size: larger;">
-						<div class="d-flex justify-content-center my-3">
-							<h4>Bạn có chắc chắn muốn đặt hàng</h5>
-						</div>
-						
-					</div>
-
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-					</div>
-
-					</div>
-				</div>
-				</div>
-			<!-- End Payment Modal -->
+			
 		</div>
     </div>
+	</form>
 	';
 } else {
 	$output_for_payment .= '
