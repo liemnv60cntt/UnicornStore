@@ -18,6 +18,7 @@ $cate = new Category();
 $prodtype = new ProductType();
 $prod = new Product();
 $ss= new Session();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +102,7 @@ $ss= new Session();
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item text-dark d-flex justify-content-start" href="user_profile.php"><i class="fas fa-user-cog mt-1"></i>&nbsp;Thông tin tài khoản</a></li>
                                     <li><a class="dropdown-item text-dark d-flex justify-content-start" href="order_info.php"><i class="fas fa-truck mt-1"></i>&nbsp;Đơn hàng</a></li>
-                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="#"><i class="fas fa-heart mt-1"></i>&nbsp;&nbsp;Yêu thích</a></li>
+                                    <li><a class="dropdown-item text-dark d-flex justify-content-start" href="wishlist_page.php"><i class="fas fa-heart mt-1"></i>&nbsp;&nbsp;Yêu thích</a></li>
                                     <li><a class="dropdown-item text-dark d-flex justify-content-start" href="#"><i class="fas fa-compress-alt mt-1"></i>&nbsp;&nbsp;So sánh</a></li>
                                     <li><a class="dropdown-item text-dark border-top border-secondary border-2" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                                 </ul>

@@ -73,7 +73,7 @@
                 $alert = "<span class='text-danger'>Chưa chọn danh mục sản phẩm!</span>";
 				return $alert;
             }else{
-				$query = "UPDATE brand SET brandName = '$brandName', cateID = '$cateID' WHERE brandId = '$brandID'";
+				$query = "UPDATE brand SET brandName = '$brandName', cateID = '$cateID' WHERE brandID = '$brandID'";
 				$result = $this->db->update($query);
 				if($result){
 					$alert = "<span class='text-success'>Sửa thương hiệu thành công!</span>";

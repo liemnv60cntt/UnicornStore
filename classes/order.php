@@ -19,6 +19,11 @@
 			$this->db = new Database();
 			$this->fm = new Format();
 		}
+		public function show_all_order(){
+			$query = "SELECT * FROM orders ORDER BY orderDate desc";
+			$result = $this->db->select($query);
+			return $result;
+		}
 		public function get_order_detail_by_id($orderID){
 			$query = "SELECT * FROM order_details
 					 WHERE orderID = '$orderID'
@@ -27,7 +32,7 @@
 			return $result;
 		}
 		public function get_all_order($customerID){
-			$query = "SELECT * FROM orders WHERE customerID = '$customerID' ORDER BY orderID desc";
+			$query = "SELECT * FROM orders WHERE customerID = '$customerID' ORDER BY orderDate desc";
 			$result = $this->db->select($query);
 			return $result;
 		}
@@ -39,7 +44,7 @@
 		public function get_order_by_status($customerID, $orderStatus){
 			$query = "SELECT * FROM orders 
 					WHERE customerID = '$customerID' AND orderStatus = '$orderStatus'
-					 ORDER BY orderID desc";
+					 ORDER BY orderDate desc";
 			$result = $this->db->select($query);
 			return $result;
 		}
@@ -119,7 +124,7 @@
 			return $result;
 		}
 		public function get_order_id(){
-			$query = "SELECT orderID FROM orders order by orderID desc LIMIT 1";
+			$query = "SELECT orderID FROM orders order by orderDate desc LIMIT 1";
 			$result = $this->db->select($query);
 			return $result;
 		}
@@ -134,18 +139,132 @@
 			$final_id = $spit_id_start . $spit_id_end;
 			return $final_id;
 		}
+		public function reOrder($orderID, $orderStatus, $customerID, $customerNote){
+			$reStatus = 0;
+			$orderID = mysqli_real_escape_string($this->db->link, $orderID);
+			$customerID = mysqli_real_escape_string($this->db->link, $customerID);
+			$customerNote = mysqli_real_escape_string($this->db->link, $customerNote);
+			$updateTime = date('Y-m-d H:i:s');
+			if($customerNote=='')
+				$customerNote = "Mua lại!";
+			$alert="";
+			if($orderStatus<=3){
+				$alert = '<div class="alert alert-danger mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+							<strong>Thông báo:</strong> Mua lại đơn hàng không thành công!
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							
+						</div>';
+				return $alert;
+			}else{
+				$query = "UPDATE orders 
+					SET orderStatus = '$reStatus', customerNote = '$customerNote', updateTime = '$updateTime', orderDate = '$updateTime'
+					WHERE orderID = '$orderID' AND customerID = '$customerID'";
+				$result = $this->db->update($query);
+				if($result){
+					$alert = '<div class="alert alert-success mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Mua lại đơn hàng thành công!
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								
+							</div>';
+					return $alert;
+				}else{
+					$alert = '<div class="alert alert-danger mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Mua lại đơn hàng không thành công!
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								
+							</div>';
+					return $alert;
+				}
+			}
+		}
+		public function cancelOrder($orderID, $orderStatus, $customerID, $customerNote){
+			$cancelStatus = 4;
+			$orderID = mysqli_real_escape_string($this->db->link, $orderID);
+			$customerID = mysqli_real_escape_string($this->db->link, $customerID);
+			$customerNote = mysqli_real_escape_string($this->db->link, $customerNote);
+			$updateTime = date('Y-m-d H:i:s');
+			if($customerNote=='')
+				$customerNote = "Hủy đơn hàng!";
+			$alert="";
+			if($orderStatus>=2){
+				$alert = '<div class="alert alert-danger mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+							<strong>Thông báo:</strong> Hủy đơn hàng không thành công!
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							
+						</div>';
+				return $alert;
+			}else{
+				$query = "UPDATE orders 
+					SET orderStatus = '$cancelStatus', customerNote = '$customerNote', updateTime = '$updateTime'
+					WHERE orderID = '$orderID' AND customerID = '$customerID'";
+				$result = $this->db->update($query);
+				if($result){
+					$alert = '<div class="alert alert-success mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Hủy đơn hàng thành công!
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								
+							</div>';
+					return $alert;
+				}else{
+					$alert = '<div class="alert alert-danger mx-5 mt-3 text-center alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Hủy đơn hàng không thành công!
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								
+							</div>';
+					return $alert;
+				}
+			}
+		}
+		public function updateOrder($orderID, $orderStatus, $adminNote){
+			$orderID = mysqli_real_escape_string($this->db->link, $orderID);
+			$adminNote = mysqli_real_escape_string($this->db->link, $adminNote);
+			$updateTime = date('Y-m-d H:i:s');
+			$alert="";
+			if($orderStatus==""){
+				$alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<strong>Thông báo:</strong> Cập nhật đơn hàng không thành công!
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>';
+				return $alert;
+			}else{
+				$query = "UPDATE orders 
+					SET orderStatus = '$orderStatus', adminNote = '$adminNote', updateTime = '$updateTime' 
+					WHERE orderID = '$orderID'";
+				$result = $this->db->update($query);
+				if($result){
+					$alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Cập nhật đơn hàng thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
+					return $alert;
+				}else{
+					$alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Cập nhật đơn hàng không thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
+					return $alert;
+				}
+			}
+		}
 		public function insertOrder($data, $customerID){
 			$orderID = mysqli_real_escape_string($this->db->link, $data['orderID']);
 			$orderPrice = mysqli_real_escape_string($this->db->link, $data['orderPrice']);
 			$customerNote = mysqli_real_escape_string($this->db->link, $data['note']);
+			$updateTime = date('Y-m-d H:i:s');
 			$alert = [];
 			if($orderID=="" || $orderPrice=="" || $customerID==""){
 				$alert['mess'] = "<span class='text-danger'>Đặt hàng không thành công!</span>";
 				$alert['error'] = 1;
 				return $alert;
 			}else{
-				$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote) 
-				VALUES('$orderID','$customerID','$orderPrice','$customerNote')";
+				$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote,updateTime) 
+				VALUES('$orderID','$customerID','$orderPrice','$customerNote','$updateTime')";
 				$result = $this->db->insert($query);
 				if($result){
 					$alert['mess'] = "<span class='text-success'>Đặt hàng thành công!</span>";

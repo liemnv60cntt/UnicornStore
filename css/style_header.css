@@ -381,3 +381,21 @@ body {
   background: #f8faf5;
   margin: 0 auto;
 }
+/* Style Wishlist */
+.heart {
+	color:red;
+}
+.btn-heart{
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+.btn-heart-2{
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+/* Style Cancel Order */
+.btn-cancel-order{
+  width: 6em;
+}

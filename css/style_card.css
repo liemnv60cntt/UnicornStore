@@ -57,6 +57,18 @@ h2 {
     border-radius: 3px;
     text-transform: uppercase
 }
+.label-top-wishlist {
+    position: absolute;
+    background-color: #DC143C;
+    color: #fff;
+    top: 8px;
+    right: 8px;
+    padding: 5px 10px 5px 10px;
+    font-size: .7rem;
+    font-weight: 600;
+    border-radius: 3px;
+    border: none;
+}
 
 .top-right {
     position: absolute;

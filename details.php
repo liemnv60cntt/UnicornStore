@@ -39,7 +39,7 @@ if ($details_prod) {
                 <!-- <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a> -->
 
-                <div class="row-detail">
+                <div class="row-detail justify-content-center d-flex">
                     <div class="column-detail">
                         <img class="demo cursor" src="./images/product_img/<?php echo $result_details['image_1'] ?>" onclick="currentSlide(1)" alt="...">
                     </div>
@@ -49,6 +49,19 @@ if ($details_prod) {
                     <div class="column-detail">
                         <img class="demo cursor" src="./images/product_img/<?php echo $result_details['image_3'] ?>" onclick="currentSlide(3)" alt="...">
                     </div>
+                </div>
+                <div class="justify-content-center d-flex <?php if($ss->get('userlogin') == false) echo "d-none" ?>">
+                    
+                    <input type="hidden" name="customer_ID_WL" id="customer_ID_WL" value="<?php echo $ss->get('userid') ?>">
+                    <input type="hidden" name="product_ID_WL" id="product_ID_WL" value="<?php echo $productID ?>">
+                    <?php
+                            $check_wlist = $prod->check_wishlist($productID, $ss->get('userid'));
+                            if($check_wlist){
+                                echo '<button type="button" name="actionWishList" class="btn-heart-2 text-danger" id="actionWList"><i class="heart ff fas fa-heart mt-2"></i> Yêu thích</button>';
+                            }else{
+                                echo '<button type="button" name="actionWishList" class="btn-heart text-dark" id="actionWList"><i class="heart ff far fa-heart mt-2"></i> Yêu thích</button>';
+                            }
+                    ?>
                 </div>
             </div>
         </div>

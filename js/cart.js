@@ -2,7 +2,59 @@ $(document).ready(function(){
 
 
 	load_cart_data();
-    
+	load_wishlist_data();
+    // Start Action Wish List
+	$(document).on('click', '.delete-wishlist', function(){
+		var product_ID_WL = $(this).attr("id");
+		var actionWL = 'remove-wishlist';
+		
+			$.ajax({
+				url:"includes/action_wishlist.php",
+				method:"POST",
+				data:{product_ID_WL:product_ID_WL, actionWL:actionWL},
+				success:function()
+				{
+					load_wishlist_data()
+					
+				}
+			})
+		
+	});
+	function load_wishlist_data()
+	{
+		$.ajax({
+			url:"includes/fetch_wishlist.php",
+			method:"POST",
+			dataType:"json",
+			success:function(data)
+			{
+				$('#wishlist_content').html(data.wishlist_content);
+			}
+		});
+	}
+	$(document).on('click', '#actionWList', function(){
+		var customer_ID_WL = $('#customer_ID_WL').val();
+		var product_ID_WL = $('#product_ID_WL').val();
+		var actionWL = "addWL";
+		if(customer_ID_WL=='' || product_ID_WL==''){
+			return false;
+		}else{
+			$.ajax({
+			url: "includes/action_wishlist.php",
+			method: "POST",
+			data: {
+				customer_ID_WL: customer_ID_WL,
+				product_ID_WL: product_ID_WL,
+				actionWL: actionWL
+			},
+			success: function(data) {
+				load_wishlist_data()
+			}
+			});
+		}
+
+	});
+	// End Action Wish List
 
 	function load_cart_data()
 	{

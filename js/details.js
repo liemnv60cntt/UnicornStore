@@ -29,3 +29,11 @@ function showSlides(n) {
   if(dots[slideIndex-1] != null)
     dots[slideIndex-1].className += " active";
 }
+$(".btn-heart").click(function() {
+  $(".heart.ff").toggleClass("fas far");
+  $(this).toggleClass("text-danger text-dark");
+});
+$(".btn-heart-2").click(function() {
+  $(".heart.ff").toggleClass("far fas");
+  $(this).toggleClass("text-dark text-danger");
+});

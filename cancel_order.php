@@ -1,5 +1,5 @@
 <?php
-$page_title = "Chi tiết đơn hàng";
+$page_title = "Hủy đơn hàng";
 include "./includes/header.php";
 ?>
 <?php
@@ -20,7 +20,7 @@ if ($orderID == '')
         <i class='fas fa-chevron-right text-secondary' style="font-size: 12px;"></i>
         <a href="./order_info.php" class="text-decoration-none"><span class="text-dark">Thông tin đơn hàng</span></a>
         <i class='fas fa-chevron-right text-secondary' style="font-size: 12px;"></i>
-        <span class="text-dark">Chi tiết đơn hàng</span>
+        <span class="text-dark">Hủy đơn hàng</span>
     </div>
     <div class="row">
         <div class="col-md-10 p-0 px-md-3 pb-md-0 pb-3">
@@ -34,7 +34,7 @@ if ($orderID == '')
                         <div class="row border-start border-primary border-3 bg-white shadow rounded mx-0 px-3 pt-1 pb-2">
                             <div class="border-bottom border-2 p-0 mb-2 row g-0 py-2">
                                 <div class="col-md-4">
-                                    <button onClick='window.history.back()' class="btn btn-outline-secondary"><i class='fas fa-arrow-left'></i> Quay lại</button>
+                                    <a href="order_info.php" class="btn btn-outline-secondary"><i class='fas fa-arrow-left'></i> Quay lại</a>
                                 </div>
                                 <div class="col-md-8">
                                     <span class="float-md-end">
@@ -46,50 +46,81 @@ if ($orderID == '')
                                         ?>
                                     </span>
                                 </div>
-                                <div class="card card-timeline px-2 border-none my-2">
-                                    
-                                    <ul class="bs5-order-tracking <?php if($result['orderStatus']==4) echo "d-none"; ?>">
-                                        <li class="step active">
-                                            <div><i class="fas fa-check-circle"></i></div> Đơn hàng đã đặt
-                                        </li>
-                                        <!-- <li class="step active">
-                                            <div><i class="fas fa-undo-alt"></i></div> Đơn hàng đã hủy
-                                        </li> -->
-                                        <li class="step <?php echo $odr->check_active(1,$orderID) ?>">
-                                            <div><i class="fas fa-spinner"></i></div> Chờ xác nhận đơn hàng
-                                        </li>
-                                        <li class="step <?php echo $odr->check_active(2,$orderID) ?>">
-                                            <div><i class="fas fa-box-open"></i></div> Đang chuẩn bị hàng
-                                        </li>
-                                        <li class="step <?php echo $odr->check_active(3,$orderID) ?>">
-                                            <div><i class="fas fa-truck"></i></div> Đang giao hàng
-                                        </li>
-                                        <li class="step <?php echo $odr->check_active(4,$orderID) ?>">
-                                            <div><i class="fas fa-calendar-check"></i></div> Đã nhận hàng và thanh toán
-                                        </li>
-                                        <li class="step <?php if($odr->check_order_rating($orderID)==true) echo "active" ?>">
-                                            <div><i class="fas fa-star-half-alt"></i></div> Đã đánh giá đơn hàng
-                                        </li>
-                                    </ul>
-                                    <ul class="bs5-order-tracking-2 <?php if($result['orderStatus']!=4) echo "d-none"; ?>">
-                                        <li class="step active">
-                                            <div><i class="fas fa-check-circle"></i></div> Đơn hàng đã đặt
-                                        </li>
-                                        <li class="step <?php echo $odr->check_active(5,$orderID) ?>">
-                                            <div><i class="far fa-trash-alt"></i></div> Đơn hàng đã hủy
-                                        </li>
-                                    </ul>
-                                    <h6 class="text-center"><?php
-                                        $up_time = strtotime($result['updateTime']);
-                                        echo "Lần cập nhật gần nhất: ".date('g:i A\, d-m-Y', $up_time);
-                                    ?></h6>
-                                    <div class="alert alert-success mx-5 text-center alert-dismissible fade show <?php if($result['adminNote']=="") echo "d-none"; ?>" role="alert">
-                                        <?php
-                                        echo $result['adminNote']
-                                        ?>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <div class="card my-2 py-2">
+                                    <?php 
+                                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cancel-order'])) {
+                                        $cancelOrder = $odr->cancelOrder($orderID, $result['orderStatus'], $ss->get('userid'), $_POST['customerNote']);
+                                    }
+                                    if(isset($cancelOrder))
+                                        echo $cancelOrder;
+                                    ?>
+                                    <div class="<?php if(isset($cancelOrder)) echo "d-none" ?>">
+                                        <h4 class="text-center text-danger">Xác nhận hủy đơn hàng</h4>
+                                        <form action="" method="POST">
+                                            <input type="text" class="my-3 form-control w-50 p-2 shadow-sm mx-auto" name="customerNote" placeholder="Lý do hủy đơn hàng...">
+                                            <div class="d-flex justify-content-center mt-3 mb-2">
+                                                <a onClick='window.history.back()' class="shadow btn btn-secondary mx-2 btn-cancel-order">Không</a>
+                                                
+                                                <button type="submit" name="cancel-order" class="shadow btn btn-danger mx-2 btn-cancel-order">Hủy</button>
+                                            </div>
+                                        </form>
                                     </div>
                                     
+
+                                </div>
+                                <div class="card card-timeline px-2 border-none my-2">
+                                    
+                                    <?php 
+                                    if(isset($cancelOrder)){
+                                        echo '<ul class="bs5-order-tracking-2">
+                                                <li class="step active">
+                                                    <div><i class="fas fa-check-circle"></i></div> Đơn hàng đã đặt
+                                                </li>
+                                                <li class="step '. $odr->check_active(5, $orderID) .'">
+                                                    <div><i class="far fa-trash-alt"></i></div> Đơn hàng đã hủy
+                                                </li>
+                                            </ul>';
+                                        $check_cus_note = (isset($_POST['customerNote']) && $_POST['customerNote'] == "") ? "d-none" : "";
+                                        $cus_note = (isset($_POST['customerNote'])) ? $_POST['customerNote'] : "";
+                                        echo '<div class="alert alert-success mx-5 text-center alert-dismissible fade show '.$check_cus_note.'" role="alert">
+                                            <strong>Lý do hủy:</strong> '. $cus_note
+                                            .'
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>';
+                                    }else{
+                                        $check_rated = ($odr->check_order_rating($orderID) == true) ? "active" : "";
+                                        $check_admin_note = ($result['adminNote'] == "") ? "d-none" : "";
+                                        echo '<ul class="bs5-order-tracking">
+                                        <li class="step active">
+                                            <div><i class="fas fa-check-circle"></i></div> Đơn hàng đã đặt
+                                        </li>
+                                        
+                                        <li class="step '. $odr->check_active(1, $orderID) .'">
+                                            <div><i class="fas fa-spinner"></i></div> Chờ xác nhận đơn hàng
+                                        </li>
+                                        <li class="step '. $odr->check_active(2, $orderID) .'">
+                                            <div><i class="fas fa-box-open"></i></div> Đang chuẩn bị hàng
+                                        </li>
+                                        <li class="step '. $odr->check_active(3, $orderID) .'">
+                                            <div><i class="fas fa-truck"></i></div> Đang giao hàng
+                                        </li>
+                                        <li class="step '. $odr->check_active(4, $orderID) .'">
+                                            <div><i class="fas fa-calendar-check"></i></div> Đã nhận hàng và thanh toán
+                                        </li>
+                                        <li class="step '. $check_rated .'">
+                                            <div><i class="fas fa-star-half-alt"></i></div> Đã đánh giá đơn hàng
+                                        </li>
+                                    </ul>';
+                                        echo '<div class="alert alert-success mx-5 text-center alert-dismissible fade show '.$check_admin_note.'" role="alert">
+                                            '. $result['adminNote']
+                                            .'
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>';
+                                    }
+                                    ?>
+                                    
+                                    
+
                                 </div>
                             </div>
                             <?php

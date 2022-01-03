@@ -6,6 +6,7 @@ Session::checkSession();
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     Session::destroy();
 }
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -131,7 +132,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="# ">
+                <a class="nav-link" href="order_list.php">
                     <i class="fas fa-fw fa-cart-arrow-down"></i>
                     <span>Danh sách đơn hàng</span></a>
             </li>

@@ -187,7 +187,9 @@ if ($login_check == false) {
                                         Tổng tiền: 
                                         <span class="text-danger fw-bold"><?php echo $fm->format_currency($result_all['orderPrice']) ?><span class="text-decoration-underline">đ</span></span>
                                     </span><br>
-                                    <a href="./order_details.php?orderID=<?php echo $result_all['orderID'] ?>" class="btn btn-outline-success float-end mt-2">Xem chi tiết</a>
+                                    <a href="./order_details.php?orderID=<?php echo $result_all['orderID'] ?>" class="btn btn-outline-success float-end mt-2 mx-1">Xem chi tiết</a>
+                                    <a href="./cancel_order.php?orderID=<?php echo $result_all['orderID'] ?>" class="btn btn-outline-danger float-end mt-2 mx-1 <?php if($result_all['orderStatus']>=2) echo "d-none" ?>">Hủy đơn hàng</a>
+
                                 </div>
                             </div>
                         </div>
@@ -284,6 +286,7 @@ if ($login_check == false) {
                                         <span class="text-danger fw-bold"><?php echo $fm->format_currency($result_pending['orderPrice']) ?><span class="text-decoration-underline">đ</span></span>
                                         <br>
                                         <a href="./order_details.php?orderID=<?php echo $result_pending['orderID'] ?>" class="btn btn-outline-success float-end mt-2">Xem chi tiết</a>
+                                        <a href="./cancel_order.php?orderID=<?php echo $result_pending['orderID'] ?>" class="btn btn-outline-danger float-end mt-2 mx-1 <?php if($result_pending['orderStatus']>=2) echo "d-none" ?>">Hủy đơn hàng</a>
                                     </span>
                                 </div>
                             </div>
@@ -380,6 +383,7 @@ if ($login_check == false) {
                                         <span class="text-danger fw-bold"><?php echo $fm->format_currency($result_preparing['orderPrice']) ?><span class="text-decoration-underline">đ</span></span>
                                         <br>
                                         <a href="./order_details.php?orderID=<?php echo $result_preparing['orderID'] ?>" class="btn btn-outline-success float-end mt-2">Xem chi tiết</a>
+                                        <a href="./cancel_order.php?orderID=<?php echo $result_preparing['orderID'] ?>" class="btn btn-outline-danger float-end mt-2 mx-1 <?php if($result_preparing['orderStatus']>=2) echo "d-none" ?>">Hủy đơn hàng</a>
                                     </span>
                                 </div>
                             </div>
@@ -669,6 +673,7 @@ if ($login_check == false) {
                                         <span class="text-danger fw-bold"><?php echo $fm->format_currency($result_cancelled['orderPrice']) ?><span class="text-decoration-underline">đ</span></span>
                                         <br>
                                         <a href="./order_details.php?orderID=<?php echo $result_cancelled['orderID'] ?>" class="btn btn-outline-success float-end mt-2">Xem chi tiết</a>
+                                        <a href="./re_order.php?orderID=<?php echo $result_cancelled['orderID'] ?>" class="btn btn-outline-primary float-end mt-2 mx-1 <?php if($result_cancelled['orderStatus']<=3) echo "d-none" ?>">Mua lại</a>
                                     </span>
                                 </div>
                             </div>
