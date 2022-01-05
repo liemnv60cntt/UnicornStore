@@ -36,6 +36,14 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
+	public function get_distinct_brandName_by_status($status)
+	{
+		$query = "SELECT DISTINCT brand.brandName
+			FROM product INNER JOIN brand ON product.brandID = brand.brandID 
+			WHERE product.productStatus = '$status' order by brand.brandName asc";
+		$result = $this->db->select($query);
+		return $result;
+	}
 	public function insert_product($data, $files)
 	{
 
@@ -354,53 +362,7 @@ class Product
 			}
 		}
 	}
-	public function insert_slider($data, $files)
-	{
-		$sliderName = mysqli_real_escape_string($this->db->link, $data['sliderName']);
-		$type = mysqli_real_escape_string($this->db->link, $data['type']);
-
-		//Kiem tra hình ảnh và lấy hình ảnh cho vào folder upload
-		$permitted  = array('jpg', 'jpeg', 'png', 'gif');
-
-		$file_name = $_FILES['image']['name'];
-		$file_size = $_FILES['image']['size'];
-		$file_temp = $_FILES['image']['tmp_name'];
-
-		$div = explode('.', $file_name);
-		$file_ext = strtolower(end($div));
-		// $file_current = strtolower(current($div));
-		$unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
-		$uploaded_image = "uploads/" . $unique_image;
-
-
-		if ($sliderName == "" || $type == "") {
-			$alert = "<span class='error'>Fields must be not empty</span>";
-			return $alert;
-		} else {
-			if (!empty($file_name)) {
-				//Nếu người dùng chọn ảnh
-				if ($file_size > 2048000) {
-
-					$alert = "<span class='success'>Image Size should be less then 2MB!</span>";
-					return $alert;
-				} elseif (in_array($file_ext, $permitted) === false) {
-					// echo "<span class='error'>You can upload only:-".implode(', ', $permitted)."</span>";	
-					$alert = "<span class='success'>You can upload only:-" . implode(', ', $permitted) . "</span>";
-					return $alert;
-				}
-				move_uploaded_file($file_temp, $uploaded_image);
-				$query = "INSERT INTO tbl_slider(sliderName,type,slider_image) VALUES('$sliderName','$type','$unique_image')";
-				$result = $this->db->insert($query);
-				if ($result) {
-					$alert = "<span class='success'>Slider Added Successfully</span>";
-					return $alert;
-				} else {
-					$alert = "<span class='error'>Slider Added Not Success</span>";
-					return $alert;
-				}
-			}
-		}
-	}
+	
 
 	public function show_product()
 	{
@@ -434,6 +396,29 @@ class Product
 	}
 
 	//END BACKEND 
+	public function prod_status_convert($status){
+		switch($status){
+			case 0:
+				return "Mới ra mắt";
+			case 1:
+				return "Nổi bật";
+			case 2:
+				return "Bán chạy";
+			case 3:
+				return "Đang khuyến mãi";
+			case 4:
+				return "Giảm giá sốc";
+			case 5:
+				return "Hàng sắp về";
+		}
+	}
+	public function get_product_by_status($productStatus)
+	{
+		$query = "SELECT product.*, brand.brandName FROM product 
+			INNER JOIN brand ON product.brandID = brand.brandID where productStatus = '$productStatus' order by productID DESC";
+		$result = $this->db->select($query);
+		return $result;
+	}
 	public function get_featured_product()
 	{
 		$query = "SELECT product.*, brand.brandName FROM product 
@@ -490,36 +475,192 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-	
-	public function update_type_slider($id, $type)
+	public function insert_slider($data, $files)
 	{
+		$sliderName = mysqli_real_escape_string($this->db->link, $data['sliderName']);
+		$sliderStatus = mysqli_real_escape_string($this->db->link, $data['sliderStatus']);
 
-		$type = mysqli_real_escape_string($this->db->link, $type);
-		$query = "UPDATE tbl_slider SET type = '$type' where sliderId='$id'";
-		$result = $this->db->update($query);
-		return $result;
-	}
-	public function del_slider($id)
-	{
-		$query = "DELETE FROM tbl_slider where sliderId = '$id'";
-		$result = $this->db->delete($query);
-		if ($result) {
-			$alert = "<span class='success'>Slider Deleted Successfully</span>";
+		$alert = [];
+		$alert['success'] = 0;
+		$errors = [];
+
+		//Kiem tra hình ảnh và lấy hình ảnh cho vào folder images
+		$permitted  = array('jpg', 'jpeg', 'png', 'gif');
+		//File ảnh
+		$file_name = $_FILES['sliderImage']['name'];
+		$file_size = $_FILES['sliderImage']['size'];
+		$file_temp = $_FILES['sliderImage']['tmp_name'];
+
+		$div = explode('.', $file_name);
+		$file_ext = strtolower(end($div));
+		$unique_image = $file_name;
+		$uploaded_image = "../images/slide_img/" . $unique_image;
+
+		// Validate
+		$alert['sliderName'] = ($sliderName == "") ? "Chưa nhập tiêu đề" : "";
+		$alert['sliderStatus'] = ($sliderStatus == "N") ? "Chưa chọn trạng thái" : "";
+		//Kiểm tra file ảnh
+		$alert['sliderImage'] = "";
+		if ($file_name == "") {
+			$alert['sliderImage'] = "Chưa chọn ảnh";
+		} else {
+			if (in_array($file_ext, $permitted) === false) {
+				$alert['sliderImage'] = "Chỉ upload file: " . implode(', ', $permitted);
+				$errors[] = $alert['sliderImage'];
+			} elseif ($file_size > 20971520) {
+				$alert['sliderImage'] = "Kích thước ảnh phải < 2MB!";
+				$errors[] = $alert['sliderImage'];
+			} else
+				$alert['sliderImage'] = "";
+		}
+
+		if ($sliderName == "" || $sliderStatus == "N" || !empty($errors)) {
+			$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Thêm slider không thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
 			return $alert;
 		} else {
-			$alert = "<span class='error'>Slider Deleted Not Success</span>";
+			move_uploaded_file($file_temp, $uploaded_image);
+			$query = "INSERT INTO slider(sliderName,sliderStatus,sliderImage) VALUES('$sliderName','$sliderStatus','$unique_image')";
+			$result = $this->db->insert($query);
+			if ($result) {
+				$alert['mess'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Thêm slider thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
+				$alert['success'] = 1;
+				return $alert;
+			} else {
+				$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Thêm slider không thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
+				return $alert;
+			}
+		}
+	}
+	public function update_slider($id, $data, $files)
+	{
+		$sliderID = mysqli_real_escape_string($this->db->link, $id);
+		$sliderName = mysqli_real_escape_string($this->db->link, $data['sliderName']);
+		$sliderStatus = mysqli_real_escape_string($this->db->link, $data['sliderStatus']);
+		$sliderImageOld = mysqli_real_escape_string($this->db->link, $data['sliderImageOld']);
+
+		$alert = [];
+		$alert['success'] = 0;
+		$errors = [];
+
+		//Kiem tra hình ảnh và lấy hình ảnh cho vào folder images
+		$permitted  = array('jpg', 'jpeg', 'png', 'gif');
+		//File ảnh
+		$file_name = $_FILES['sliderImage']['name'];
+		$file_size = $_FILES['sliderImage']['size'];
+		$file_temp = $_FILES['sliderImage']['tmp_name'];
+
+		$div = explode('.', $file_name);
+		$file_ext = strtolower(end($div));
+		$unique_image = $file_name;
+		$uploaded_image = "../images/slide_img/" . $unique_image;
+
+		// Validate
+		$alert['sliderName'] = ($sliderName == "") ? "Chưa nhập tiêu đề" : "";
+		$alert['sliderStatus'] = ($sliderStatus == "N") ? "Chưa chọn trạng thái" : "";
+		//Kiểm tra file ảnh
+		$alert['sliderImage'] = "";
+		if ($file_name != ""){
+			if (in_array($file_ext, $permitted) === false) {
+				$alert['sliderImage'] = "Chỉ upload file: " . implode(', ', $permitted);
+				$errors[] = $alert['sliderImage'];
+			} elseif ($file_size > 20971520) {
+				$alert['sliderImage'] = "Kích thước ảnh phải < 2MB!";
+				$errors[] = $alert['sliderImage'];
+			} else
+				$alert['sliderImage'] = "";
+		}
+
+		if ($sliderName == "" || $sliderStatus == "N" || !empty($errors)) {
+			$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Cập nhật slider không thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
+			return $alert;
+		} else {
+			$update_image = ($file_name == "") ? $sliderImageOld : $file_name;
+			if ($file_name != "")
+				move_uploaded_file($file_temp, $uploaded_image);
+			$query = "UPDATE slider SET
+					sliderName = '$sliderName',
+					sliderStatus = '$sliderStatus',
+					sliderImage = '$update_image'
+					
+					WHERE sliderID = '$sliderID'";
+
+			$result = $this->db->update($query);
+			if ($result) {
+				$alert['mess'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Cập nhật slider thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
+				return $alert;
+			} else {
+				$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Cập nhật slider không thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
+				return $alert;
+			}
+		}
+	}
+	public function delete_slider($id)
+	{
+		$query = "DELETE FROM slider where sliderID = '$id'";
+		$result = $this->db->delete($query);
+		if ($result) {
+			$alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>Thông báo:</strong> Xóa slider thành công!
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>';
+			return $alert;
+		} else {
+			$alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<strong>Thông báo:</strong> Xóa slider không thành công!
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>';
 			return $alert;
 		}
 	}
 	public function show_slider()
 	{
-		$query = "SELECT * FROM tbl_slider where type='1' order by sliderId desc";
+		$query = "SELECT * FROM slider where sliderStatus='0' OR sliderStatus='1' order by sliderID desc";
 		$result = $this->db->select($query);
 		return $result;
 	}
 	public function show_slider_list()
 	{
-		$query = "SELECT * FROM tbl_slider order by sliderId desc";
+		$query = "SELECT * FROM slider order by sliderID desc";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function get_slider_by_ID($id)
+	{
+		$query = "SELECT * FROM slider WHERE sliderID = '$id'";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -544,30 +685,7 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-	public function getLastestDell()
-	{
-		$query = "SELECT * FROM tbl_product WHERE brandId = '6' order by productId desc LIMIT 1";
-		$result = $this->db->select($query);
-		return $result;
-	}
-	public function getLastestOppo()
-	{
-		$query = "SELECT * FROM tbl_product WHERE brandId = '3' order by productId desc LIMIT 1";
-		$result = $this->db->select($query);
-		return $result;
-	}
-	public function getLastestHuawei()
-	{
-		$query = "SELECT * FROM tbl_product WHERE brandId = '4' order by productId desc LIMIT 1";
-		$result = $this->db->select($query);
-		return $result;
-	}
-	public function getLastestSamsung()
-	{
-		$query = "SELECT * FROM tbl_product WHERE brandId = '2' order by productId desc LIMIT 1";
-		$result = $this->db->select($query);
-		return $result;
-	}
+	
 	public function get_compare($customer_id)
 	{
 		$query = "SELECT * FROM tbl_compare WHERE customer_id = '$customer_id' order by id desc";
@@ -660,6 +778,52 @@ class Product
 							<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
 						</span>";
 				return $alert;
+			}
+		}
+	}
+	public function check_user_rating($customerID, $productID){
+		$query_order = "SELECT orderID FROM orders WHERE customerID = '$customerID' AND orderStatus='3'";
+		$result_order = $this->db->select($query_order);
+		if($result_order){
+			while($get_order = $result_order->fetch_assoc()){
+				$query_order_detail = "SELECT ratingStatus FROM order_details
+					WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
+   				$result_order_detail = $this->db->select($query_order_detail);
+				if($result_order_detail){
+					while($get_order_detail = $result_order_detail->fetch_assoc()){
+						if($get_order_detail['ratingStatus'] == 0)
+							return true;
+						else
+							return false;
+					}
+				}
+			}
+		}
+	}
+	public function submit_user_rating($customerID, $productID){
+		$query_order = "SELECT orderID FROM orders WHERE customerID = '$customerID' AND orderStatus='3'";
+		$result_order = $this->db->select($query_order);
+		if($result_order){
+			while($get_order = $result_order->fetch_assoc()){
+				$query_order_detail = "SELECT ratingStatus FROM order_details
+					WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
+   				$result_order_detail = $this->db->select($query_order_detail);
+				if($result_order_detail){
+					while($get_order_detail = $result_order_detail->fetch_assoc()){
+						if($get_order_detail['ratingStatus'] == 0){
+							$query = "UPDATE order_details
+							SET ratingStatus = '1' 
+							WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
+							$result = $this->db->update($query);
+							if($result)
+								return true;
+							else
+								return false;
+						}
+						else
+							return false;
+					}
+				}
 			}
 		}
 	}

@@ -4,14 +4,19 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
+var vl1 = document.getElementById("pendingNum").value;
+var vl2 = document.getElementById("preparingNum").value;
+var vl3 = document.getElementById("deliveringNum").value;
+var vl4 = document.getElementById("deliveredNum").value;
+var vl5 = document.getElementById("cancelledNum").value;
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: ["Chờ xác nhận", "Đang chuẩn bị hàng", "Đang giao", "Đã giao và thanh toán", "Đã hủy"],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [vl1, vl2, vl3, vl4, vl5],
+      backgroundColor: ['#FFD700', '#36b9cc', '#4e73df', '#1cc88a', '#DC143C'],
+      hoverBackgroundColor: ['#f7e307', '#16a1f7', '#2e59d9', '#17a673', '#f51e1b'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

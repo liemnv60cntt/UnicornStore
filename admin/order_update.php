@@ -54,8 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
                 ?></span>
         </div>
     </div>
-    <div class="card-body">
-        
+    <div class="card-body pt-2">
+        <a href="./order_list.php" class="btn btn-outline-secondary mb-2">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
         <h5>Cập nhật đơn hàng:</h5>
         <?php
         if (isset($updateOrder))
@@ -147,11 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
             </form>
 
         </div>
-        <h6 class="text-center">Lần cập nhật gần nhất: 
-        <?php
+        <h6 class="text-center">Lần cập nhật gần nhất:
+            <?php
             $up_time = strtotime($result_order['updateTime']);
             echo date('g:i A\, d-m-Y', $up_time);
-        ?>
+            ?>
         </h6>
         <h5>Thông tin khách hàng:</h5>
         <div class="card border-left-primary p-3">

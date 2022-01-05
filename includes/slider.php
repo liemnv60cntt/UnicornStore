@@ -3,22 +3,36 @@
 
             <!-- Indicators/dots -->
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                <?php
+                $get_slider = $prod->show_slider();
+                $i=0;
+                if ($get_slider) {
+                    while ($result = $get_slider->fetch_assoc()) {
+
+                ?>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="<?php echo $i ?>" class="<?php if ($result['sliderStatus'] == 0) echo "active"; ?>"></button>
+                <?php
+                    $i++;
+                    }
+                }
+                ?>
             </div>
 
             <!-- The slideshow/carousel -->
             <div class="carousel-inner shadow mx-2" style="border-radius: 0.6em;">
-                <div class="carousel-item active">
-                    <img src="./images/slide_img/slide_3.jpg" alt="Slide" class="d-block" style="width:100%; max-height: 34em;">
-                </div>
-                <div class="carousel-item">
-                    <img src="./images/slide_img/slide_2.jpg" alt="Slide" class="d-block" style="width:100%; max-height: 34em;">
-                </div>
-                <div class="carousel-item">
-                    <img src="./images/slide_img/slide_3.jpg" alt="Slide" class="d-block" style="width:100%; max-height: 34em;">
-                </div>
+                <?php
+                $get_slider = $prod->show_slider();
+                if ($get_slider) {
+                    while ($result = $get_slider->fetch_assoc()) {
+
+                ?>
+                        <div class="carousel-item <?php if ($result['sliderStatus'] == 0) echo "active"; ?>">
+                            <img src="./images/slide_img/<?php echo $result['sliderImage'] ?>" alt="Slide" class="d-block" style="width:100%; max-height: 34em;">
+                        </div>
+                <?php
+                    }
+                }
+                ?>
             </div>
 
             <!-- Left and right controls/icons -->
@@ -29,4 +43,3 @@
                 <span class="carousel-control-next-icon"></span>
             </button>
         </div>
-

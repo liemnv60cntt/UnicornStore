@@ -531,8 +531,8 @@ if ($login_check == false) {
                                 <div class="col-md-2 col-4 d-flex justify-content-center">
                                     <img src="images/product_img/<?php echo $result_prod["image_1"] ?>" alt="..." style="width: 8em;height: 7em;"/>
                                 </div>
-                                    <div class="col-md-10 col-8 row py-md-0 py-3">
-                                        <div class="col-md-3 d-flex align-items-center">
+                                    <div class="col-md-10 col-8 row py-md-0 py-3 g-0">
+                                        <div class="col-md-4 d-flex align-items-center">
                                         <a class="a-card" href="details.php?productID=<?php echo $result_prod["productID"] ?>"><?php echo $fm->textShorten($result_prod["productName"], 40) ?></a>
                                         </div>
                                         <div class="col-md-3 d-flex align-items-center">
@@ -541,18 +541,20 @@ if ($login_check == false) {
                                                 <?php echo $fm->format_currency($result_prod["current_price"]) ?>
                                             </span>
                                             <span class="fw-bold" style="text-decoration: underline;">đ</span>
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-center">
-                                            <span class="text-secondary">Số lượng: &nbsp;</span>
-                                            <span class="fw-bold"><?php echo $result_order_details["quantity"] ?></span>
+                                            <span class="fw-bold">&nbsp;&nbsp;x<?php echo $result_order_details["quantity"] ?></span>
                                         </div>
                                         
-                                        <div class="col-md-4 d-flex align-items-center">
+                                        
+                                        <div class="col-md-3 d-flex align-items-center">
                                         <span class="text-secondary">Thành tiền: &nbsp;</span>
                                         <span class=" text-danger fw-bold">
                                             <?php echo $fm->format_currency($result_order_details["totalPrice"]) ?>
                                         </span>
                                         <span class="text-danger fw-bold" style="text-decoration: underline;">đ</span>
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-center fw-bold text-uppercase">
+                                            <span class="text-danger fw-bold mt-md-0 mt-3 <?php if($prod->check_user_rating($ss->get('userid'), $result_prod['productID']) == true ){ echo 'd-none';} ?>">Đã đánh giá</span>
+                                            <a href="details.php?productID=<?php echo $result_prod['productID'] ?>" class="text-warning text-decoration-none mt-md-0 mt-3 <?php if($prod->check_user_rating($ss->get('userid'), $result_prod['productID']) != true ){ echo 'd-none';} ?>"><i class='fas fa-star'></i> Đánh giá</a>
                                         </div>
                                         
                                     </div>
@@ -576,6 +578,7 @@ if ($login_check == false) {
                                         <span class="text-danger fw-bold"><?php echo $fm->format_currency($result_delivered['orderPrice']) ?><span class="text-decoration-underline">đ</span></span>
                                         <br>
                                         <a href="./order_details.php?orderID=<?php echo $result_delivered['orderID'] ?>" class="btn btn-outline-success float-end mt-2">Xem chi tiết</a>
+                                        <!-- <a href="./re_order.php?orderID=<?php //echo $result_delivered['orderID'] ?>" class="btn btn-outline-primary float-end mt-2 mx-1 <?php //if($result_delivered['orderStatus']<=2) echo "d-none" ?>">Mua lại</a> -->
                                     </span>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@ include "./includes/sidebar_topbar.php";
 include '../classes/product.php';
 include '../classes/user.php';
 include '../classes/order.php';
-include_once '../helpers/format.php'
+include_once '../helpers/format.php';
 ?>
 <?php
     $fmt = new Format();

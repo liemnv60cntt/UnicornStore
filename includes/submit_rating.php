@@ -2,8 +2,10 @@
 //submit_rating.php
 
 include_once "../classes/productreview.php";
+include_once "../classes/product.php";
 
 $prodreview = new ProductReview();
+$prod = new Product();
 
 if(isset($_POST["rating_data"])){
     
@@ -13,6 +15,7 @@ if(isset($_POST["rating_data"])){
 	$review		=	$_POST["review"];
 	$ratingTime	=	time();
 	$insert_review = $prodreview->insert_review($customerID, $productID, $rating, $review, $ratingTime);
+	$update_rating_status = $prod->submit_user_rating($customerID, $productID);
     
 }
 date_default_timezone_set('Asia/Ho_Chi_Minh');

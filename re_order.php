@@ -83,7 +83,7 @@ if ($orderID == '')
                                         $check_cus_note = ($result['customerNote'] == "") ? "d-none" : "";
                                         $cus_note = ($result['customerNote'] != "") ? $result['customerNote'] : "";
                                         echo '<div class="alert alert-success mx-5 text-center alert-dismissible fade show '.$check_cus_note.'" role="alert">
-                                            <strong>Lý do hủy:</strong> '. $cus_note
+                                            <strong>Ghi chú:</strong> '. $cus_note
                                             .'
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>';

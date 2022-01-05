@@ -61,6 +61,8 @@ $(document).ready(function() {
                     review: review
                 },
                 success: function(data) {
+                    $('#add_review').addClass('d-none');
+                    $('#disabled_review').removeClass('d-none');
                     $('#review_modal').modal('hide');
                     load_rating_data();
                     $('#savedReview').modal('show');

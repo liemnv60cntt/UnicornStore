@@ -227,7 +227,9 @@ if ($details_prod) {
                     </div>
                     <div class="col-sm-4 text-center">
                         <h3 class="mt-4 mb-3">Viết đánh giá</h3>
-                        <button type="button" name="add_review" id="add_review" class="btn btn-primary">Đánh giá</button>
+                       
+                        <button type="button" name="add_review" id="add_review" class="btn btn-primary <?php if($prod->check_user_rating($ss->get('userid'), $productID) != true ){ echo 'd-none';} ?>">Đánh giá</button>
+                        <button type="button" id="disabled_review" class="btn btn-secondary <?php if($prod->check_user_rating($ss->get('userid'), $productID) == true ){ echo 'd-none';} ?>">Đánh giá</button>
                     </div>
                 </div>
             </div>

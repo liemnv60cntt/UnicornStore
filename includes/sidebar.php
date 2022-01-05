@@ -46,26 +46,15 @@
         <div class="mb-3">
             <h5>Gợi ý cho bạn</h5>
             <div class="tagcloud">
-                <a href="#" class="shadow-sm">Nổi bật</a>
-                <a href="#" class="shadow-sm">Bán chạy</a>
-                <a href="#" class="shadow-sm">Đang khuyến mãi</a>
-                <a href="#" class="shadow-sm">Giảm giá sốc</a>
-                <a href="#" class="shadow-sm">Đề xuất</a>
+                <a href="search_by_status.php?productStatus=0" class="shadow-sm">Mới ra mắt</a>
+                <a href="search_by_status.php?productStatus=1" class="shadow-sm">Nổi bật</a>
+                <a href="search_by_status.php?productStatus=2" class="shadow-sm">Bán chạy</a>
+                <a href="search_by_status.php?productStatus=3" class="shadow-sm">Đang khuyến mãi</a>
+                <a href="search_by_status.php?productStatus=4" class="shadow-sm">Giảm giá sốc</a>
+                <a href="search_by_status.php?productStatus=5" class="shadow-sm">Hàng sắp về</a>
             </div>
         </div>
-        <div class="mb-2">
-            <h5>Thương hiệu sản phẩm</h5>
-            <div class="tagcloud brand-area">
-                <a href="#">dish</a>
-                <a href="#">menu</a>
-                <a href="#">food</a>
-                <a href="#">sweet</a>
-                <a href="#">tasty</a>
-                <a href="#">delicious</a>
-                <a href="#">desserts</a>
-                <a href="#">drinks</a>
-            </div>
-        </div>
+        
 
     </div>
 </nav>

@@ -22,10 +22,10 @@ include "./includes/header.php";
 <div class="row mt-5 mx-auto p-2" style="max-width: 1200px;">
     <div>
         <h3 class="float-start">Sản phẩm nổi bật</h3>
-        <i class="text-warning float-end mt-2" style="font-weight: 500;">Xem thêm 
-            <i class='fas fa-angle-double-right' style='font-size:12px'></i></i>
+        <a href="search_by_status.php?productStatus=1"><i class="text-warning float-end mt-2" style="font-weight: 500;">Xem thêm
+            <i class='fas fa-angle-double-right' style='font-size:12px'></i></i></a>
     </div>
-    
+
     <?php
     $featured_products = $prod->get_featured_product();
     if ($featured_products) {
@@ -50,37 +50,41 @@ include "./includes/header.php";
                             <h5 class="card-title mb-sm-4">
                                 <?php echo $fm->textShorten($result_featured['productName'], 50) ?>
                             </h5>
-                            </a>
-                            <div class="clearfix mt-1">
-                                <span class="float-start" style="font-size: small;">
-                                    <?php $prodID = $result_featured['productID'];
-                                    include "includes/load_rating.php" ?><br>
-                                    Đã bán <?php echo $result_featured['productQuantity'] - $result_featured['productRemain'] ?> sản phẩm
-                                </span>
-                                <!-- Thêm vào giỏ hàng -->
-                                <input type="hidden" name="quantity" id="quantity<?php echo $result_featured['productID'] ?>" class="form-control" value="1" />
-            	                <input type="hidden" name="hidden_name" id="name<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['productName'] ?>" />
-            	                <input type="hidden" name="hidden_price" id="price<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['current_price'] ?>" />
-                                <input type="hidden" name="hidden_image" id="image<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['image_1'] ?>" />
-                                <input type="hidden" name="hidden_remain" id="remain<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['productRemain'] ?>" />
-                                <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['old_price'] ?>" />
-                                <button name="add_to_cart" id="<?php echo $result_featured['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
-                                <!-- Kết thúc thêm giỏ hàng -->
-                            </div>
-                        </div>
-                    </div>
-               
+                </a>
+                <div class="clearfix mt-1">
+                    <span class="float-start" style="font-size: small;">
+                        <?php $prodID = $result_featured['productID'];
+                        include "includes/load_rating.php" ?><br>
+                        Đã bán <?php echo $result_featured['productQuantity'] - $result_featured['productRemain'] ?> sản phẩm
+                    </span>
+                    <!-- Thêm vào giỏ hàng -->
+                    <input type="hidden" name="quantity" id="quantity<?php echo $result_featured['productID'] ?>" class="form-control" value="1" />
+                    <input type="hidden" name="hidden_name" id="name<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['productName'] ?>" />
+                    <input type="hidden" name="hidden_price" id="price<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['current_price'] ?>" />
+                    <input type="hidden" name="hidden_image" id="image<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['image_1'] ?>" />
+                    <input type="hidden" name="hidden_remain" id="remain<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['productRemain'] ?>" />
+                    <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['old_price'] ?>" />
+                    <button name="add_to_cart" id="<?php echo $result_featured['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <!-- Kết thúc thêm giỏ hàng -->
+                </div>
             </div>
-    <?php
+</div>
+
+</div>
+<?php
         }
     }
-    ?>
-   
+?>
+
 
 </div>
 <!-- Sản phẩm khuyến mãi -->
 <div class="row mt-3 mx-auto p-2" style="max-width: 1200px;">
-    <h3>Giảm giá sốc</h3>
+    <div>
+        <h3 class="float-start">Giảm giá sốc</h3>
+        <a href="search_by_status.php?productStatus=4"><i class="text-warning float-end mt-2" style="font-weight: 500;">Xem thêm
+            <i class='fas fa-angle-double-right' style='font-size:12px'></i></i></a>
+    </div>
     <?php
     $discount_products = $prod->get_discount_product();
     if ($discount_products) {
@@ -105,37 +109,41 @@ include "./includes/header.php";
                             <h5 class="card-title mb-sm-4">
                                 <?php echo $fm->textShorten($result_discount['productName'], 50) ?>
                             </h5>
-                            </a>
-                            <div class="clearfix mt-1">
-                                <span class="float-start" style="font-size: small;">
-                                    <?php $prodID = $result_discount['productID'];
-                                    include "includes/load_rating.php" ?><br>
-                                    Đã bán <?php echo $result_discount['productQuantity'] - $result_discount['productRemain'] ?> sản phẩm
-                                </span>
-                                <!-- Thêm vào giỏ hàng -->
-                                <input type="hidden" name="quantity" id="quantity<?php echo $result_discount['productID'] ?>" class="form-control" value="1" />
-            	                <input type="hidden" name="hidden_name" id="name<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['productName'] ?>" />
-            	                <input type="hidden" name="hidden_price" id="price<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['current_price'] ?>" />
-                                <input type="hidden" name="hidden_image" id="image<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['image_1'] ?>" />
-                                <input type="hidden" name="hidden_remain" id="remain<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['productRemain'] ?>" />
-                                <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['old_price'] ?>" />
-                                <button name="add_to_cart" id="<?php echo $result_discount['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
-                                <!-- Kết thúc thêm giỏ hàng -->
-                            </div>
-                        </div>
-                    </div>
-                
+                </a>
+                <div class="clearfix mt-1">
+                    <span class="float-start" style="font-size: small;">
+                        <?php $prodID = $result_discount['productID'];
+                        include "includes/load_rating.php" ?><br>
+                        Đã bán <?php echo $result_discount['productQuantity'] - $result_discount['productRemain'] ?> sản phẩm
+                    </span>
+                    <!-- Thêm vào giỏ hàng -->
+                    <input type="hidden" name="quantity" id="quantity<?php echo $result_discount['productID'] ?>" class="form-control" value="1" />
+                    <input type="hidden" name="hidden_name" id="name<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['productName'] ?>" />
+                    <input type="hidden" name="hidden_price" id="price<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['current_price'] ?>" />
+                    <input type="hidden" name="hidden_image" id="image<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['image_1'] ?>" />
+                    <input type="hidden" name="hidden_remain" id="remain<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['productRemain'] ?>" />
+                    <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['old_price'] ?>" />
+                    <button name="add_to_cart" id="<?php echo $result_discount['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <!-- Kết thúc thêm giỏ hàng -->
+                </div>
             </div>
-    <?php
+</div>
+
+</div>
+<?php
         }
     }
-    ?>
+?>
 
 </div>
 
 <!-- Sản phẩm mới -->
 <div class="row mt-3 mx-auto p-2" style="max-width: 1200px;">
-    <h3>Sản phẩm mới</h3>
+    <div>
+        <h3 class="float-start">Sản phẩm mới</h3>
+        <a href="search_by_status.php?productStatus=0"><i class="text-warning float-end mt-2" style="font-weight: 500;">Xem thêm
+            <i class='fas fa-angle-double-right' style='font-size:12px'></i></i></a>
+    </div>
     <?php
     $new_products = $prod->get_new_product();
     if ($new_products) {
@@ -160,31 +168,31 @@ include "./includes/header.php";
                             <h5 class="card-title mb-sm-4">
                                 <?php echo $fm->textShorten($result_new['productName'], 50) ?>
                             </h5>
-                            </a>
-                            <div class="clearfix mt-1">
-                                <span class="float-start" style="font-size: small;">
-                                    <?php $prodID = $result_new['productID'];
-                                    include "includes/load_rating.php" ?><br>
-                                    Đã bán <?php echo $result_new['productQuantity'] - $result_new['productRemain'] ?> sản phẩm
-                                </span>
-                                <!-- Thêm vào giỏ hàng -->
-                                <input type="hidden" name="quantity" id="quantity<?php echo $result_new['productID'] ?>" class="form-control" value="1" />
-            	                <input type="hidden" name="hidden_name" id="name<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['productName'] ?>" />
-            	                <input type="hidden" name="hidden_price" id="price<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['current_price'] ?>" />
-                                <input type="hidden" name="hidden_image" id="image<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['image_1'] ?>" />
-                                <input type="hidden" name="hidden_remain" id="remain<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['productRemain'] ?>" />
-                                <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['old_price'] ?>" />
-                                <button name="add_to_cart" id="<?php echo $result_new['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
-                                <!-- Kết thúc thêm giỏ hàng -->
-                            </div>
-                        </div>
-                    </div>
-               
+                </a>
+                <div class="clearfix mt-1">
+                    <span class="float-start" style="font-size: small;">
+                        <?php $prodID = $result_new['productID'];
+                        include "includes/load_rating.php" ?><br>
+                        Đã bán <?php echo $result_new['productQuantity'] - $result_new['productRemain'] ?> sản phẩm
+                    </span>
+                    <!-- Thêm vào giỏ hàng -->
+                    <input type="hidden" name="quantity" id="quantity<?php echo $result_new['productID'] ?>" class="form-control" value="1" />
+                    <input type="hidden" name="hidden_name" id="name<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['productName'] ?>" />
+                    <input type="hidden" name="hidden_price" id="price<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['current_price'] ?>" />
+                    <input type="hidden" name="hidden_image" id="image<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['image_1'] ?>" />
+                    <input type="hidden" name="hidden_remain" id="remain<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['productRemain'] ?>" />
+                    <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['old_price'] ?>" />
+                    <button name="add_to_cart" id="<?php echo $result_new['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <!-- Kết thúc thêm giỏ hàng -->
+                </div>
             </div>
-    <?php
+</div>
+
+</div>
+<?php
         }
     }
-    ?>
+?>
 
 
 </div>
@@ -195,25 +203,25 @@ include "./includes/header.php";
 <!-- Modal -->
 <!-- The Modal Add Cart Success -->
 <div class="modal fade" id="addCartSuccess">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Thông báo</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-    <!-- Modal body -->
-      <div class="modal-body" style="font-size: larger;">
-            Thêm sản phẩm vào giỏ hàng thành công!
-      </div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
-      </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="font-size: larger;">
+                Thêm sản phẩm vào giỏ hàng thành công!
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
 
+        </div>
     </div>
-  </div>
 </div>
 
 
