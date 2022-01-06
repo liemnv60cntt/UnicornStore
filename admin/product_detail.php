@@ -2,6 +2,7 @@
 include "./includes/sidebar_topbar.php";
 include '../classes/product.php';
 include '../classes/category.php';
+include '../classes/order.php';
 ?>
 <?php
 $productID = (isset($_GET['productID']) && $_GET['productID'] != null) ? $_GET['productID'] : '';
@@ -9,6 +10,7 @@ if ($productID == '')
     echo "<script>window.location ='product_list.php'</script>";
 
 $prod = new Product();
+$odr = new Order();
 $deleteID = (isset($_GET['deleteID']) && $_GET['deleteID'] != null) ? $_GET['deleteID'] : '';
 if ($deleteID != '')
     $deleteProd = $prod->delete_product($deleteID);
@@ -118,6 +120,10 @@ if ($deleteID != '')
                             <tr>
                                 <td style="width: 10em;"><b>Số lượng còn lại:</b></td>
                                 <td><?php echo $result['productRemain'] ?> sản phẩm</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10em;"><b>Đã bán:</b></td>
+                                <td><?php echo $odr->check_sold($result['productID']) ?> sản phẩm</td>
                             </tr>
                             <tr>
                                 <td style="width: 8em;"><b>Thời gian thêm:</b></td>

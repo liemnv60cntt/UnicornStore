@@ -80,7 +80,7 @@ include "./includes/header.php";
                                     <span class="price-old"><?php echo $fm->format_currency($result_search['old_price']) ?>đ</span><br>
                                     <span class="text-warning price-new"><?php echo $fm->format_currency($result_search['current_price']) ?>đ</span>
                                 </div>
-                                <span class="float-end">
+                                <span class="float-end <?php if($result_search['current_price']<=500000) echo 'd-none' ?>">
                                     <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;" />
                                 </span>
                             </div>
@@ -92,7 +92,7 @@ include "./includes/header.php";
                                 <span class="float-start" style="font-size: small;">
                                     <?php $prodID = $result_search['productID'];
                                     include "includes/load_rating.php" ?><br>
-                                    Đã bán <?php echo $result_search['productQuantity'] - $result_search['productRemain'] ?> sản phẩm
+                                    Đã bán <?php echo $odr->check_sold($result_search['productID']); ?> sản phẩm
                                 </span>
                                 <!-- Thêm vào giỏ hàng -->
                                 <input type="hidden" name="quantity" id="quantity<?php echo $result_search['productID'] ?>" class="form-control" value="1" />

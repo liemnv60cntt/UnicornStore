@@ -19,7 +19,7 @@
             </div>
 
             <!-- The slideshow/carousel -->
-            <div class="carousel-inner shadow mx-2" style="border-radius: 0.6em;">
+            <div class="carousel-inner shadow" style="border-radius: 0.6em;">
                 <?php
                 $get_slider = $prod->show_slider();
                 if ($get_slider) {

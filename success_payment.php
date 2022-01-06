@@ -20,8 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['order_now'])) {
         $quantity = $values['product_quantity'];
         $totalPrice = $values['product_quantity'] * $values['product_price'];
         $insertOrderDetail = $odr->insertOrderDetail($orderID, $productID, $quantity, $totalPrice);
+        $updateRemain = $prod->update_remain($productID, $quantity);
     }
-    if ($insertOrder['error'] == 0 && $insertOrderDetail['error'] == 0) {
+    if ($insertOrder['error'] == 0 && $insertOrderDetail['error'] == 0 && $updateRemain == true) {
         unset($_SESSION['shopping_cart']);
         // $get_order = $odr->get_order_by_id($orderID);
         // if ($get_order) {

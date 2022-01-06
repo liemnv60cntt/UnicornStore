@@ -74,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Đăng nhập">
 
                                     </form>
-                                    <hr>
+                                    <br>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Quên mật khẩu?</a>
+                                        <a class="small" href="forgot-password.php">Quên mật khẩu?</a>
                                     </div>
                                     <div class="text-center border-top">
                                         <a class="small" href="../index.php">Về trang chủ</a>

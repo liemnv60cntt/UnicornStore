@@ -80,6 +80,26 @@ class Order
 		$result = $this->db->select($query);
 		return $result;
 	}
+	public function check_sold($productID)
+	{	
+		$sold = 0;
+		$query_order = "SELECT orderID FROM orders 
+					WHERE orderStatus = '3'";
+		$result_order = $this->db->select($query_order);
+		if($result_order){
+			while($rs_order = $result_order->fetch_assoc()){
+				$query = "SELECT quantity FROM order_details
+					 WHERE productID = '$productID' AND orderID = '".$rs_order['orderID']."'";
+				$result = $this->db->select($query);
+				if($result){
+					while($rs = $result->fetch_assoc()){
+						$sold += $rs['quantity'];
+					}
+				}
+			}
+		}
+		return $sold;
+	}
 	public function get_order_detail_by_id($orderID)
 	{
 		$query = "SELECT * FROM order_details

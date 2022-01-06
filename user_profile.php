@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_profile'])) {
                     <i class="fas fa-truck"></i>&nbsp;Đơn hàng
                 </a>
             </div><br>
-            <div class="d-flex justify-content-between align-items-center"><span>Sản phẩm yêu thích:</span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-heart"></i>&nbsp;Yêu thích</span></div><br>
+            <div class="d-flex justify-content-between align-items-center"><span>Sản phẩm yêu thích:</span><a href="./wishlist_page.php" class="text-decoration-none text-dark border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-heart"></i>&nbsp;Yêu thích</a></div><br>
             <div class="d-flex justify-content-between align-items-center"><span>So sánh sản phẩm:</span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-compress-alt"></i>&nbsp;So sánh</span></div><br>
             <div class="d-flex justify-content-between align-items-center"><span>Đổi mật khẩu:</span>
             <a href="./login/update-password.php?email=<?php echo $ss->get('email') ?>" class="text-dark text-decoration-none border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-user-lock"></i>&nbsp;Mật khẩu</a></div><br>

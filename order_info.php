@@ -696,8 +696,8 @@ if ($login_check == false) {
     </div>
     <div class="col-md-2 d-flex justify-content-center rounded bg-white shadow">
         <div class="p-3 py-5">
-            <div class="d-flex justify-content-between align-items-center"><span></span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-user-cog"></i>&nbsp;Tài khoản</span></div><br>
-            <div class="d-flex justify-content-between align-items-center"><span></span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-heart"></i>&nbsp;Yêu thích</span></div><br>
+            <div class="d-flex justify-content-between align-items-center"><span></span><a href="./user_profile.php" class="text-decoration-none text-dark border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-user-cog"></i>&nbsp;Tài khoản</a></div><br>
+            <div class="d-flex justify-content-between align-items-center"><span></span><a href="./wishlist_page.php" class="text-decoration-none text-dark border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-heart"></i>&nbsp;Yêu thích</a></div><br>
             <div class="d-flex justify-content-between align-items-center"><span></span><span class="border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-compress-alt"></i>&nbsp;So sánh</span></div><br>
             <div class="d-flex justify-content-between align-items-center"><span></span>
                 <a href="./login/update-password.php?email=<?php echo $ss->get('email') ?>" class="text-dark text-decoration-none border px-3 p-1 btn-profile rounded shadow-sm"><i class="fas fa-user-lock"></i>&nbsp;Mật khẩu</a>

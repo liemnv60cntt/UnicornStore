@@ -57,7 +57,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
             <a class="navbar-brand" href="index.php">
                 <img src="./images/more/unicorn-logo-3-removebg.png" alt="Logo" id="logo-img">
             </a>
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <button class="navbar-toggler collapsed p-0" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <div class="hamburger-toggle">
                     <div class="hamburger">
                         <span></span>

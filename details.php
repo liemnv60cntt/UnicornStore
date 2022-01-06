@@ -100,7 +100,7 @@ if ($details_prod) {
                     </td>
                     <td>:</td>
                     <td>
-                        <b>&nbsp;&nbsp;<?php echo $result_details['productQuantity'] - $result_details['productRemain'] ?> sản phẩm</b>
+                        <b>&nbsp;&nbsp;<?php echo $odr->check_sold($result_details['productID']); ?> sản phẩm</b>
                     </td>
                     <td></td>
                     <td></td>
@@ -152,6 +152,9 @@ if ($details_prod) {
                 <a href="cart_page.php" class="btn btn-primary mx-1 px-5 buy_now" name="buy_now" id="<?php echo $result_details['productID'] ?>">Mua ngay</a>
                 <!-- <button class="btn btn-primary mx-1 px-5">Mua ngay</button> -->
             </div>
+            <span class="text-danger <?php if($result_details['current_price']<=500000) echo 'd-none' ?>">
+                <b>Ưu đãi:</b> Miễn phí giao hàng cho đơn hàng hơn 500K
+            </span>
 
 
         </div>

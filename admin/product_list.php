@@ -2,11 +2,13 @@
 include "./includes/sidebar_topbar.php";
 include '../classes/product.php';
 include '../classes/category.php';
+include '../classes/order.php';
 include_once '../helpers/format.php'
 ?>
 <?php
     $fmt = new Format();
     $prod = new Product();
+    $odr = new Order();
     $deleteID = (isset($_GET['deleteID']) && $_GET['deleteID']!=null) ? $_GET['deleteID'] : '';
     if($deleteID != '')
         $deleteProd = $prod->delete_product($deleteID);
@@ -91,7 +93,7 @@ include_once '../helpers/format.php'
                         }
                         ?></td>
                         <td><?php 
-                            echo "<b>Tổng: </b>".$result['productQuantity']."<br><b>Còn: </b>".$result['productRemain'];
+                            echo "<b>Tổng: </b>".$result['productQuantity']."<br><b>Còn: </b>".$result['productRemain']."<br><b>Đã bán: </b>".$odr->check_sold($result['productID']);
                         ?></td>
                         <td>
                             <?php

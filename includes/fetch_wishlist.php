@@ -1,12 +1,14 @@
 <?php
 include "../helpers/format.php";
 include "../classes/product.php";
+include "../classes/order.php";
 include "../lib/session.php";
 // Action from cart.js
 Session::init();
 $fm = new Format();
 $prod = new Product();
 $ss = new Session();
+$odr = new Order();
 
 $output = '
 <div class="row mx-auto p-2" style="max-width: 1200px;">
@@ -18,12 +20,17 @@ $output = '
     </div>
     <h3 class="text-center">Sản phẩm yêu thích</h3>
 ';
+$check_freeship = '';
 $wishlist_products = $prod->get_wishlist($ss->get('userid'));
 if ($wishlist_products) {
     while ($result_wishlist = $wishlist_products->fetch_assoc()) {
         $get_product_detail = $prod->get_product_by_ID($result_wishlist['productID']);
         if($get_product_detail)
             $result_prod = $get_product_detail->fetch_assoc();
+        if($result_prod['current_price']<=500000) 
+            $check_freeship = 'd-none';
+        else
+            $check_freeship = '';
         
         // Start fetch
         $output .= '
@@ -40,7 +47,7 @@ if ($wishlist_products) {
                         <span class="price-old">'. $fm->format_currency($result_prod['old_price']) .'đ</span><br>
                         <span class="text-warning price-new">'. $fm->format_currency($result_prod['current_price']) .'đ</span>
                     </div>
-                    <span class="float-end">
+                    <span class="float-end '. $check_freeship .'">
                         <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;" />
                     </span>
                 </div>
@@ -50,7 +57,7 @@ if ($wishlist_products) {
                 </a>
                 <div class="clearfix mt-1">
                     <span class="float-start" style="font-size: small;">
-                        Đã bán '. $result_prod['productQuantity'] - $result_prod['productRemain'] .' sản phẩm
+                        Đã bán '. $odr->check_sold($result_wishlist['productID']) .' sản phẩm
                     </span>
                     <!-- Thêm vào giỏ hàng -->
                     <input type="hidden" name="quantity" id="quantity'. $result_wishlist['productID'] .'" class="form-control" value="1" />

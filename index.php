@@ -43,8 +43,8 @@ include "./includes/header.php";
                                     <span class="price-old"><?php echo $fm->format_currency($result_featured['old_price']) ?>đ</span><br>
                                     <span class="text-warning price-new"><?php echo $fm->format_currency($result_featured['current_price']) ?>đ</span>
                                 </div>
-                                <span class="float-end">
-                                    <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;" />
+                                <span class="float-end <?php if($result_featured['current_price']<=500000) echo 'd-none' ?>">
+                                    <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;"/>
                                 </span>
                             </div>
                             <h5 class="card-title mb-sm-4">
@@ -55,7 +55,7 @@ include "./includes/header.php";
                     <span class="float-start" style="font-size: small;">
                         <?php $prodID = $result_featured['productID'];
                         include "includes/load_rating.php" ?><br>
-                        Đã bán <?php echo $result_featured['productQuantity'] - $result_featured['productRemain'] ?> sản phẩm
+                        Đã bán <?php echo $odr->check_sold($result_featured['productID']); ?> sản phẩm
                     </span>
                     <!-- Thêm vào giỏ hàng -->
                     <input type="hidden" name="quantity" id="quantity<?php echo $result_featured['productID'] ?>" class="form-control" value="1" />
@@ -102,7 +102,7 @@ include "./includes/header.php";
                                     <span class="price-old"><?php echo $fm->format_currency($result_discount['old_price']) ?>đ</span><br>
                                     <span class="text-warning price-new"><?php echo $fm->format_currency($result_discount['current_price']) ?>đ</span>
                                 </div>
-                                <span class="float-end">
+                                <span class="float-end <?php if($result_discount['current_price']<=500000) echo 'd-none' ?>">
                                     <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;" />
                                 </span>
                             </div>
@@ -114,7 +114,7 @@ include "./includes/header.php";
                     <span class="float-start" style="font-size: small;">
                         <?php $prodID = $result_discount['productID'];
                         include "includes/load_rating.php" ?><br>
-                        Đã bán <?php echo $result_discount['productQuantity'] - $result_discount['productRemain'] ?> sản phẩm
+                        Đã bán <?php echo $odr->check_sold($result_discount['productID']); ?> sản phẩm
                     </span>
                     <!-- Thêm vào giỏ hàng -->
                     <input type="hidden" name="quantity" id="quantity<?php echo $result_discount['productID'] ?>" class="form-control" value="1" />
@@ -161,7 +161,7 @@ include "./includes/header.php";
                                     <span class="price-old"><?php echo $fm->format_currency($result_new['old_price']) ?>đ</span><br>
                                     <span class="text-warning price-new"><?php echo $fm->format_currency($result_new['current_price']) ?>đ</span>
                                 </div>
-                                <span class="float-end">
+                                <span class="float-end <?php if($result_new['current_price']<=500000) echo 'd-none' ?>">
                                     <img src="./images/more/freeship-2.png" alt="..." style="width: 2.5em;margin:0px;" />
                                 </span>
                             </div>
@@ -173,7 +173,7 @@ include "./includes/header.php";
                     <span class="float-start" style="font-size: small;">
                         <?php $prodID = $result_new['productID'];
                         include "includes/load_rating.php" ?><br>
-                        Đã bán <?php echo $result_new['productQuantity'] - $result_new['productRemain'] ?> sản phẩm
+                        Đã bán <?php echo $odr->check_sold($result_new['productID']); ?> sản phẩm
                     </span>
                     <!-- Thêm vào giỏ hàng -->
                     <input type="hidden" name="quantity" id="quantity<?php echo $result_new['productID'] ?>" class="form-control" value="1" />

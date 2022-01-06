@@ -362,7 +362,7 @@ class Product
 			}
 		}
 	}
-	
+
 
 	public function show_product()
 	{
@@ -396,8 +396,9 @@ class Product
 	}
 
 	//END BACKEND 
-	public function prod_status_convert($status){
-		switch($status){
+	public function prod_status_convert($status)
+	{
+		switch ($status) {
 			case 0:
 				return "Mới ra mắt";
 			case 1:
@@ -574,7 +575,7 @@ class Product
 		$alert['sliderStatus'] = ($sliderStatus == "N") ? "Chưa chọn trạng thái" : "";
 		//Kiểm tra file ảnh
 		$alert['sliderImage'] = "";
-		if ($file_name != ""){
+		if ($file_name != "") {
 			if (in_array($file_ext, $permitted) === false) {
 				$alert['sliderImage'] = "Chỉ upload file: " . implode(', ', $permitted);
 				$errors[] = $alert['sliderImage'];
@@ -648,7 +649,7 @@ class Product
 	}
 	public function show_slider()
 	{
-		$query = "SELECT * FROM slider where sliderStatus='0' OR sliderStatus='1' order by sliderID desc";
+		$query = "SELECT * FROM slider where sliderStatus='0' OR sliderStatus='1' order by sliderStatus asc";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -665,7 +666,7 @@ class Product
 		return $result;
 	}
 
-	
+
 	public function getproduct_new()
 	{
 		$sp_tungtrang = 4;
@@ -685,14 +686,14 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-	
+
 	public function get_compare($customer_id)
 	{
 		$query = "SELECT * FROM tbl_compare WHERE customer_id = '$customer_id' order by id desc";
 		$result = $this->db->select($query);
 		return $result;
 	}
-	
+
 	public function insertCompare($productid, $customer_id)
 	{
 
@@ -781,17 +782,18 @@ class Product
 			}
 		}
 	}
-	public function check_user_rating($customerID, $productID){
+	public function check_user_rating($customerID, $productID)
+	{
 		$query_order = "SELECT orderID FROM orders WHERE customerID = '$customerID' AND orderStatus='3'";
 		$result_order = $this->db->select($query_order);
-		if($result_order){
-			while($get_order = $result_order->fetch_assoc()){
+		if ($result_order) {
+			while ($get_order = $result_order->fetch_assoc()) {
 				$query_order_detail = "SELECT ratingStatus FROM order_details
-					WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
-   				$result_order_detail = $this->db->select($query_order_detail);
-				if($result_order_detail){
-					while($get_order_detail = $result_order_detail->fetch_assoc()){
-						if($get_order_detail['ratingStatus'] == 0)
+					WHERE productID='$productID' AND orderID = '" . $get_order['orderID'] . "'";
+				$result_order_detail = $this->db->select($query_order_detail);
+				if ($result_order_detail) {
+					while ($get_order_detail = $result_order_detail->fetch_assoc()) {
+						if ($get_order_detail['ratingStatus'] == 0)
 							return true;
 						else
 							return false;
@@ -800,30 +802,52 @@ class Product
 			}
 		}
 	}
-	public function submit_user_rating($customerID, $productID){
+	public function submit_user_rating($customerID, $productID)
+	{
 		$query_order = "SELECT orderID FROM orders WHERE customerID = '$customerID' AND orderStatus='3'";
 		$result_order = $this->db->select($query_order);
-		if($result_order){
-			while($get_order = $result_order->fetch_assoc()){
+		if ($result_order) {
+			while ($get_order = $result_order->fetch_assoc()) {
 				$query_order_detail = "SELECT ratingStatus FROM order_details
-					WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
-   				$result_order_detail = $this->db->select($query_order_detail);
-				if($result_order_detail){
-					while($get_order_detail = $result_order_detail->fetch_assoc()){
-						if($get_order_detail['ratingStatus'] == 0){
+					WHERE productID='$productID' AND orderID = '" . $get_order['orderID'] . "'";
+				$result_order_detail = $this->db->select($query_order_detail);
+				if ($result_order_detail) {
+					while ($get_order_detail = $result_order_detail->fetch_assoc()) {
+						if ($get_order_detail['ratingStatus'] == 0) {
 							$query = "UPDATE order_details
 							SET ratingStatus = '1' 
-							WHERE productID='$productID' AND orderID = '".$get_order['orderID']."'";
+							WHERE productID='$productID' AND orderID = '" . $get_order['orderID'] . "'";
 							$result = $this->db->update($query);
-							if($result)
+							if ($result)
 								return true;
 							else
 								return false;
-						}
-						else
+						} else
 							return false;
 					}
 				}
+			}
+		}
+	}
+	public function update_remain($productID, $quantity)
+	{
+		$get_product = self::get_product_by_ID($productID);
+		if ($get_product)
+			$result = $get_product->fetch_assoc();
+		$new_remain = $result['productRemain'] - $quantity;
+		if ($productID == "" || $new_remain == "") {
+			return false;
+		} else {
+			
+			$query = "UPDATE product SET
+						productRemain = '$new_remain'						
+						WHERE productID = '$productID'";
+
+			$result = $this->db->update($query);
+			if ($result) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 	}
