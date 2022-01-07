@@ -62,6 +62,7 @@
 			$customerName = mysqli_real_escape_string($this->db->link, $data['customerName']);
 			$address = mysqli_real_escape_string($this->db->link, $data['address']);
 			$city_province = mysqli_real_escape_string($this->db->link, $data['city_province']);
+			$district = mysqli_real_escape_string($this->db->link, $data['district']);
 			$phone = mysqli_real_escape_string($this->db->link, $data['phone']);
 			$alert = [];
 			$alert['success'] = "";
@@ -70,9 +71,10 @@
 			$alert['customerName'] = ($customerName=="") ? "*Họ tên không được để trống" : "";
 			$alert['address'] = ($address=="") ? "*Địa chỉ không được để trống" : "";
 			$alert['city_province'] = ($city_province=="") ? "*Tỉnh/Thành phố không được để trống" : "";
+			$alert['district'] = ($district=="") ? "*Quận/Huyện không được để trống" : "";
 			$alert['phone'] = ($phone=="") ? "*SĐT không được để trống" : "";
 
-			if($customerName=="" || $address=="" || $city_province=="" || $phone==""){
+			if($customerName=="" || $address=="" || $city_province=="" || $district=="" || $phone==""){
 				$alert['error'] = "Cập nhật thông tin tài khoản không thành công!";
 				return $alert;
 			}else{
@@ -80,6 +82,7 @@
 					SET customerName = '$customerName',
 						address = '$address',
 				   		city_province = '$city_province',
+						district = '$district',
 				   		phone = '$phone' 
 			  	 	WHERE customerID = '$id'";
 				$result = $this->db->update($query);

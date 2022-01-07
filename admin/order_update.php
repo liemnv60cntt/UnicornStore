@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
             </div>
             <div>
                 <span>Địa chỉ nhận hàng:</span>
-                <b><?php echo $result_cus['address'] . ', ' . $result_cus['city_province'] ?></b>
+                <b><?php echo $result_cus['address'] . ', '. $result_cus['district'] . ', ' . $result_cus['city_province'] ?></b>
             </div>
         </div>
         <div class="mt-3">

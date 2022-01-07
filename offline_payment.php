@@ -78,27 +78,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_profile'])) {
                         ?>
                     </div>
                     <div class="col-md-12">
-                        <label class="labels">Tỉnh / Thành phố:</label>
-                        <input name="city_province" type="text" class="form-control" placeholder="Nhập tỉnh/thành phố" value="<?php echo $result_user['city_province'] ?>">
-                        <?php
-                        if (isset($updateUser)) {
-                            echo "<span class='text-danger fw-light fst-italic'>";
-                            echo $updateUser['city_province'];
-                            echo "<span>";
-                        }
-                        ?>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="labels">Địa chỉ nhận hàng:</label>
-                        <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng" value="<?php echo $result_user['address'] ?>">
-                        <?php
-                        if (isset($updateUser)) {
-                            echo "<span class='text-danger fw-light fst-italic'>";
-                            echo $updateUser['address'];
-                            echo "<span>";
-                        }
-                        ?>
-                    </div>
+                            <label class="labels">Tỉnh / Thành phố:</label>
+                            <select name="calc_shipping_provinces" required class="form-select">
+                                <option value="">Tỉnh / Thành phố</option>
+                            </select>
+                            <?php
+                            if (isset($updateUser)) {
+                                echo "<span class='text-danger fw-light fst-italic'>";
+                                echo $updateUser['city_province'];
+                                echo "<span>";
+                            }
+                            ?>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Quận / Huyện:</label>
+                            <select name="calc_shipping_district" required class="form-select">
+                                <option value="">Quận / Huyện:</option>
+                            </select>
+                            <?php
+                            if (isset($updateUser)) {
+                                echo "<span class='text-danger fw-light fst-italic'>";
+                                echo $updateUser['district'];
+                                echo "<span>";
+                            }
+                            ?>
+                        </div>
+                        <input class="billing_address_1" name="city_province" type="hidden" value="<?php echo $result_user['city_province'] ?>">
+                        <input class="billing_address_2" name="district" type="hidden" value="<?php echo $result_user['district'] ?>">
+
+                        <div class="col-md-12">
+                            <label class="labels">Địa chỉ:</label>
+                            <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ" value="<?php echo $result_user['address'] ?>">
+                            <?php
+                            if (isset($updateUser)) {
+                                echo "<span class='text-danger fw-light fst-italic'>";
+                                echo $updateUser['address'];
+                                echo "<span>";
+                            }
+                            ?>
+                        </div>
 
 
                 </div>

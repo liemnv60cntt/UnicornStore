@@ -448,7 +448,7 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-
+	
 	public function get_details($id)
 	{
 		$query = "

@@ -99,6 +99,7 @@
   <script src="./js/404.js"></script>
   <script src="./js/cart.js"></script>
   <script src="./js/filter.js"></script>
+  <script src="./js/district.js"></script>
 </body>
 
 </html>
