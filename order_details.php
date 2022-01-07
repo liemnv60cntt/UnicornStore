@@ -42,7 +42,7 @@ if ($orderID == '')
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -81,7 +81,7 @@ if ($orderID == '')
                                     </ul>
                                     <h6 class="text-center"><?php
                                         $up_time = strtotime($result['updateTime']);
-                                        echo "Lần cập nhật gần nhất: ".date('g:i A\, d-m-Y', $up_time);
+                                        echo "Lần cập nhật gần nhất: ".date('H:i, d-m-Y', $up_time);
                                     ?></h6>
                                     <div class="alert alert-success mx-5 text-center alert-dismissible fade show <?php if($result['adminNote']=="") echo "d-none"; ?>" role="alert">
                                         <?php

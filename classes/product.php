@@ -829,12 +829,17 @@ class Product
 			}
 		}
 	}
-	public function update_remain($productID, $quantity)
+	public function update_remain($productID, $quantity, $type)
 	{
 		$get_product = self::get_product_by_ID($productID);
 		if ($get_product)
 			$result = $get_product->fetch_assoc();
-		$new_remain = $result['productRemain'] - $quantity;
+		if($type == 0)
+			$new_remain = $result['productRemain'] - $quantity;
+		elseif($type == 1)
+			$new_remain = $result['productRemain'] + $quantity;
+		else
+			$new_remain = 0;
 		if ($productID == "" || $new_remain == "") {
 			return false;
 		} else {

@@ -38,7 +38,7 @@ if(isset($_POST["action"])){
 				'customerName'		=>	$row["customerName"],
 				'review'			=>	$row["review"],
 				'rating'			=>	$row["rating"],
-				'ratingTime'		=>	date('l jS, F Y h:i:s A', $row["ratingTime"])
+				'ratingTime'		=>	date('H:i, d-m-Y', $row["ratingTime"])
 			);
 			if($row["rating"] == '5')
 			{

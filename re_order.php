@@ -42,7 +42,7 @@ if ($orderID == '')
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -50,8 +50,14 @@ if ($orderID == '')
                                     <?php 
                                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['re-order'])) {
                                         $reOrder = $odr->reOrder($orderID, $result['orderStatus'], $ss->get('userid'), $_POST['customerNote']);
+                                        $order_detail = $odr->get_order_detail_by_id($result['orderID']);
+                                        if ($order_detail) {
+                                            while ($result_od = $order_detail->fetch_assoc()) {
+                                                $updateRemain = $prod->update_remain($result_od['productID'], $result_od['quantity'], 0);
+                                            }
+                                        }
                                     }
-                                    if(isset($reOrder))
+                                    if(isset($reOrder) && $updateRemain == true)
                                         echo $reOrder;
                                     ?>
                                     <div class="<?php if(isset($reOrder)) echo "d-none" ?>">

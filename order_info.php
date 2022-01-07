@@ -122,7 +122,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_all['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -219,7 +219,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_pending['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -317,7 +317,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_preparing['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -414,7 +414,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_delivering['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -510,7 +510,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_delivered['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
@@ -610,7 +610,7 @@ if ($login_check == false) {
                                         <span class="fw-bold text-primary"> | </span>
                                         <?php
                                         $time = strtotime($result_cancelled['orderDate']);
-                                        echo date('g:i A\, d-m-Y', $time);
+                                        echo date('H:i, d-m-Y', $time);
                                         ?>
                                     </span>
                                 </div>
