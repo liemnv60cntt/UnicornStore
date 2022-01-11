@@ -37,30 +37,41 @@ include "./header_login.php";
                         <label class="form-label">Họ và tên:</label>
                         <input class="form-control" type="text" name="name" placeholder="Họ tên" required value="<?php echo $name ?>">
                     </div>
+                    
                     <div class="mb-2">
-                    <label class="form-label">Địa chỉ:</label>
+                        <label class="form-label">Tỉnh / Thành phố:</label>
+                        <select name="calc_shipping_provinces" required class="form-select form-control">
+                            <option value="">Tỉnh / Thành phố</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Quận / Huyện:</label>
+                        <select name="calc_shipping_district" required class="form-select form-control">
+                            <option value="">Quận / Huyện:</option>
+                        </select>
+                    </div>
+                    <input class="billing_address_1" name="city" type="hidden" value="<?php echo $city ?>">
+                    <input class="billing_address_2" name="district" type="hidden" value="<?php echo $district ?>">
+                    <div class="mb-2">
+                        <label class="form-label">Địa chỉ:</label>
                         <input class="form-control" type="text" name="address" placeholder="Địa chỉ" required value="<?php echo $address ?>">
-                    </div>
-                    <div class="mb-2">
-                    <label class="form-label">Tỉnh / thành phố:</label>
-                        <input class="form-control" type="text" name="city" placeholder="Tỉnh / Thành phố" required value="<?php echo $city ?>">
-                    </div>
-                    <div class="mb-2">
-                    <label class="form-label">Số điện thoại:</label>
-                        <input class="form-control" type="text" name="phone" placeholder="Số điện thoại" required value="<?php echo $phone ?>">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-2">
-                    <label class="form-label">Email đăng nhập:</label>
+                        <label class="form-label">Số điện thoại:</label>
+                        <input class="form-control" type="text" name="phone" placeholder="Số điện thoại" required value="<?php echo $phone ?>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Email đăng nhập:</label>
                         <input class="form-control" type="email" name="email" placeholder="Email" required value="<?php echo $email ?>">
                     </div>
                     <div class="mb-2">
-                    <label class="form-label">Mật khẩu:</label>
+                        <label class="form-label">Mật khẩu:</label>
                         <input class="form-control" type="password" name="password" placeholder="Mật khẩu" required>
                     </div>
                     <div class="mb-2">
-                    <label class="form-label">Nhập lại mật khẩu:</label>
+                        <label class="form-label">Nhập lại mật khẩu:</label>
                         <input class="form-control" type="password" name="cpassword" placeholder="Xác nhận mật khẩu" required>
                     </div>
                 </div>

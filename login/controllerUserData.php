@@ -11,6 +11,7 @@ $email = "";
 $name = "";
 $address = "";
 $city = "";
+$district = "";
 $phone = "";
 $errors = array();
 
@@ -19,6 +20,7 @@ if(isset($_POST['signup'])){
     $name =  $_POST['name'];
     $address = $_POST['address'];
     $city = $_POST['city'];
+    $district = $_POST['district'];
     $phone = $_POST['phone'];
     $email =  $_POST['email'];
     $password =  $_POST['password'];
@@ -35,7 +37,7 @@ if(isset($_POST['signup'])){
         $encpass = password_hash($password, PASSWORD_BCRYPT);
         $code = rand(999999, 111111);
         $status = "notverified";
-        $_insert_user = $_user->insert_user($name, $address, $city, $phone, $email, $encpass, $code, $status);
+        $_insert_user = $_user->insert_user($name, $address, $city, $district, $phone, $email, $encpass, $code, $status);
         if($_insert_user){
             $subject = "Mã xác thực Email";
             $message = "Mã xác thực email của bạn là: <h3> $code </h3>Unicorn Store.";

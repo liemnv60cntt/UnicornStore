@@ -371,15 +371,15 @@ class Order
 		$orderID = mysqli_real_escape_string($this->db->link, $data['orderID']);
 		$orderPrice = mysqli_real_escape_string($this->db->link, $data['orderPrice']);
 		$customerNote = mysqli_real_escape_string($this->db->link, $data['note']);
-		$updateTime = date('Y-m-d H:i:s');
+		$orderDate = date('Y-m-d H:i:s');
 		$alert = [];
 		if ($orderID == "" || $orderPrice == "" || $customerID == "") {
 			$alert['mess'] = "<span class='text-danger'>Đặt hàng không thành công!</span>";
 			$alert['error'] = 1;
 			return $alert;
 		} else {
-			$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote,updateTime) 
-				VALUES('$orderID','$customerID','$orderPrice','$customerNote','$updateTime')";
+			$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote,orderDate,updateTime) 
+				VALUES('$orderID','$customerID','$orderPrice','$customerNote','$orderDate','$orderDate')";
 			$result = $this->db->insert($query);
 			if ($result) {
 				$alert['mess'] = "<span class='text-success'>Đặt hàng thành công!</span>";

@@ -5,10 +5,17 @@ Session::init();
 <?php
 include_once('lib/database.php');
 include_once('helpers/format.php');
+include_once('classes/brand.php');
+include_once('classes/category.php');
+include_once('classes/order.php');
+include_once('classes/product.php');
+include_once('classes/productreview.php');
+include_once('classes/producttype.php');
+include_once('classes/user.php');
 //Tự động include các class trong thư mục classes
-spl_autoload_register(function ($className) {
-    include_once "classes/" . $className . ".php";
-});
+// spl_autoload_register(function ($className) {
+//     include_once "classes/" . $className . ".php";
+// });
 $db = new Database();
 $fm = new Format();
 $odr = new Order();

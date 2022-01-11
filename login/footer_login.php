@@ -2,6 +2,7 @@
     
 </body>
 </html>
+<script src="../js/district.js"></script>
 <script>
     $(document).ready(function() {
         $('.btn-spinner').on('click', e => {

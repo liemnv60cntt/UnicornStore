@@ -107,21 +107,22 @@
 			else
 				return false;
 		}
-		public function insert_user($customerName, $address, $city, $phone, $email, $password, $code, $status){
+		public function insert_user($customerName, $address, $city, $district, $phone, $email, $password, $code, $status){
 			$customerName = $this->fm->validation($customerName);
 			$address = $this->fm->validation($address);
 			$city = $this->fm->validation($city);
 			$customerName = mysqli_real_escape_string($this->db->link, $customerName);
 			$address = mysqli_real_escape_string($this->db->link, $address);
 			$city = mysqli_real_escape_string($this->db->link, $city);
+			$district = mysqli_real_escape_string($this->db->link, $district);
 			$phone = mysqli_real_escape_string($this->db->link, $phone);
 			$email = mysqli_real_escape_string($this->db->link, $email);
 			$password = mysqli_real_escape_string($this->db->link, $password);
 			$code = mysqli_real_escape_string($this->db->link, $code);
 			$status = mysqli_real_escape_string($this->db->link, $status);
 
-			$query = "INSERT INTO customer ( customerName,  address,  city_province,  phone,  email,  password,  code,  status)
-			values('$customerName', '$address', '$city', '$phone', '$email', '$password', '$code', '$status')";
+			$query = "INSERT INTO customer ( customerName,  address,  city_province, district,  phone,  email,  password,  code,  status)
+			values('$customerName', '$address', '$city', '$district', '$phone', '$email', '$password', '$code', '$status')";
 			$result = $this->db->insert($query);
 			if($result)
 				return true;
