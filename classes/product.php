@@ -20,6 +20,20 @@ class Product
 	}
 	public function search_product($keyword)
 	{
+		$rowsPerPage = 4;
+		if (!isset($_GET['page'])) {
+			$_GET['page'] = 1;
+		}
+		$offset =($_GET['page']-1)*$rowsPerPage;
+		$keyword = $this->fm->validation($keyword);
+		$query = "SELECT product.*, brand.brandName
+			FROM product INNER JOIN brand ON product.brandID = brand.brandID 
+			WHERE product.productName LIKE '%$keyword%' order by product.productID desc LIMIT $offset, $rowsPerPage";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function search_all_product($keyword)
+	{
 		$keyword = $this->fm->validation($keyword);
 		$query = "SELECT product.*, brand.brandName
 			FROM product INNER JOIN brand ON product.brandID = brand.brandID 
@@ -174,7 +188,12 @@ class Product
 
 
 		if ($productName == "" || $product_type == "N" || $brand == "N" || $description == "" || $productQuantity == "" || $warrantyPeriod == "" || $old_price == "" || $current_price == "" || $file_name_1 == "" || $file_name_2 == "" || $file_name_3 == "" || !empty($errors)) {
-			$alert['mess'] = "<span class='text-danger'>Thêm sản phẩm không thành công!</span>";
+			$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<strong>Thông báo:</strong> Thêm sản phẩm không thành công!
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>';
 			return $alert;
 		} else {
 			move_uploaded_file($file_temp_1, $uploaded_image_1);
@@ -183,11 +202,21 @@ class Product
 			$query = "INSERT INTO product(productName,brandID,typeID,description,productQuantity,productRemain,warrantyPeriod,old_price,current_price,image_1,image_2,image_3) VALUES('$productName','$brand','$product_type','$description','$productQuantity','$productQuantity','$warrantyPeriod','$old_price','$current_price','$unique_image_1','$unique_image_2','$unique_image_3')";
 			$result = $this->db->insert($query);
 			if ($result) {
-				$alert['mess'] = "<span class='text-success'>Thêm sản phẩm thành công!</span>";
+				$alert['mess'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Thêm sản phẩm thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
 				$alert['success'] = 1;
 				return $alert;
 			} else {
-				$alert['mess'] = "<span class='text-danger'>Thêm sản phẩm không thành công!</span>";
+				$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Thêm sản phẩm không thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
 				return $alert;
 			}
 		}
@@ -323,7 +352,12 @@ class Product
 		}
 
 		if ($productName == "" || $product_type == "N" || $brand == "N" || $description == "" || $productStatus == "N" || $productQuantity == "" || $productRemain == "" || $warrantyPeriod == "" || $old_price == "" || $current_price == "" || !empty($errors)) {
-			$alert['mess'] = "<span class='text-danger'>Cập nhật sản phẩm không thành công!</span>";
+			$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Thông báo:</strong> Cập nhật sản phẩm không thành công!
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>';
 			return $alert;
 		} else {
 			$update_image_1 = ($file_name_1 == "") ? $image_1_old : $file_name_1;
@@ -354,10 +388,20 @@ class Product
 
 			$result = $this->db->update($query);
 			if ($result) {
-				$alert['mess'] = "<span class='text-success'>Cập nhật sản phẩm thành công!</span>";
+				$alert['mess'] = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Cập nhật sản phẩm thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
 				return $alert;
 			} else {
-				$alert['mess'] = "<span class='text-danger'>Cập nhật sản phẩm không thành công!</span>";
+				$alert['mess'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>Thông báo:</strong> Cập nhật sản phẩm không thành công!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>';
 				return $alert;
 			}
 		}
@@ -415,8 +459,24 @@ class Product
 	}
 	public function get_product_by_status($productStatus)
 	{
+
+		$rowsPerPage = 4;
+		if (!isset($_GET['page'])) {
+			$_GET['page'] = 1;
+		}
+		$offset =($_GET['page']-1)*$rowsPerPage;
+
 		$query = "SELECT product.*, brand.brandName FROM product 
-			INNER JOIN brand ON product.brandID = brand.brandID where productStatus = '$productStatus' order by productID DESC";
+			INNER JOIN brand ON product.brandID = brand.brandID 
+			where productStatus = '$productStatus' order by productID DESC LIMIT $offset, $rowsPerPage";
+		$result = $this->db->select($query);
+		return $result;
+	}
+	public function get_all_product_by_status($productStatus)
+	{
+		$query = "SELECT product.*, brand.brandName FROM product 
+			INNER JOIN brand ON product.brandID = brand.brandID 
+			where productStatus = '$productStatus' order by productID DESC";
 		$result = $this->db->select($query);
 		return $result;
 	}
@@ -667,68 +727,14 @@ class Product
 	}
 
 
-	public function getproduct_new()
-	{
-		$sp_tungtrang = 4;
-		if (!isset($_GET['trang'])) {
-			$trang = 1;
-		} else {
-			$trang = $_GET['trang'];
-		}
-		$tung_trang = ($trang - 1) * $sp_tungtrang;
-		$query = "SELECT * FROM tbl_product order by productId desc LIMIT $tung_trang,$sp_tungtrang";
-		$result = $this->db->select($query);
-		return $result;
-	}
 	public function get_all_product()
 	{
-		$query = "SELECT * FROM tbl_product";
+		$query = "SELECT * FROM product";
 		$result = $this->db->select($query);
 		return $result;
 	}
 
-	public function get_compare($customer_id)
-	{
-		$query = "SELECT * FROM tbl_compare WHERE customer_id = '$customer_id' order by id desc";
-		$result = $this->db->select($query);
-		return $result;
-	}
-
-	public function insertCompare($productid, $customer_id)
-	{
-
-		$productid = mysqli_real_escape_string($this->db->link, $productid);
-		$customer_id = mysqli_real_escape_string($this->db->link, $customer_id);
-
-		$check_compare = "SELECT * FROM tbl_compare WHERE productId = '$productid' AND customer_id ='$customer_id'";
-		$result_check_compare = $this->db->select($check_compare);
-
-		if ($result_check_compare) {
-			$msg = "<span class='error'>Product Already Added to Compare</span>";
-			return $msg;
-		} else {
-
-			$query = "SELECT * FROM tbl_product WHERE productId = '$productid'";
-			$result = $this->db->select($query)->fetch_assoc();
-
-			$productName = $result["productName"];
-			$price = $result["price"];
-			$image = $result["image"];
-
-
-
-			$query_insert = "INSERT INTO tbl_compare(productId,price,image,customer_id,productName) VALUES('$productid','$price','$image','$customer_id','$productName')";
-			$insert_compare = $this->db->insert($query_insert);
-
-			if ($insert_compare) {
-				$alert = "<span class='success'>Added Compare Successfully</span>";
-				return $alert;
-			} else {
-				$alert = "<span class='error'>Added Compare Not Success</span>";
-				return $alert;
-			}
-		}
-	}
+	
 	public function get_wishlist($customer_id)
 	{
 		$query = "SELECT * FROM wish_list WHERE customerID = '$customer_id' order by wishID desc";

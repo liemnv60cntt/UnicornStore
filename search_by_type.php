@@ -109,7 +109,7 @@ include "./includes/header.php";
                                 <input type="hidden" name="hidden_image" id="image<?php echo $result_search['productID'] ?>" value="<?php echo $result_search['image_1'] ?>" />
                                 <input type="hidden" name="hidden_remain" id="remain<?php echo $result_search['productID'] ?>" value="<?php echo $result_search['productRemain'] ?>" />
                                 <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_search['productID'] ?>" value="<?php echo $result_search['old_price'] ?>" />
-                                <button name="add_to_cart" id="<?php echo $result_search['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                                <button name="add_to_cart" id="<?php echo $result_search['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1 <?php if($result_search['productRemain']==0) echo 'disabled' ?>"><i class='fas fa-cart-plus'></i></button>
                                 <!-- Kết thúc thêm giỏ hàng -->
                             </div>
                         </div>
@@ -122,7 +122,40 @@ include "./includes/header.php";
         echo "<h3 class='text-center mt-5 text-secondary'>Không có sản phẩm cần tìm!</h3>";
     }
     ?>
-   
+<!-- Start pagination -->
+<div>
+    <ul class="pagination justify-content-center mt-4">  
+        <?php
+        $rowsPerPage = 4;
+        $product_all = $prodtype->get_all_product_by_type($typeID);
+        if($product_all){
+            $numRows = mysqli_num_rows($product_all);
+            $maxPage = ceil($numRows / $rowsPerPage);
+            // Nút back
+            if ($_GET['page'] > 1) {
+                echo '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'] . "?typeID=$typeID&page=". ($_GET['page'] - 1) .'"><i class="fas fa-chevron-left"></i></a></li>';
+            }else{
+                echo '<li class="page-item disabled"><a class="page-link" href="'.$_SERVER['PHP_SELF'] . "?typeID=$typeID&page=". ($_GET['page'] - 1) .'"><i class="fas fa-chevron-left"></i></a></li>';
+            }
+            // Nút phân trang
+            for ($i = 1; $i <= $maxPage; $i++) {
+                if ($i == $_GET['page']) {
+                    echo '<li class="page-item active"><a class="page-link" href="javascript:void(0);">'.$i.'</a></li>'; //trang hiện tại sẽ được bôi đậm
+                } else
+                    echo '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'] . "?typeID=$typeID&page=". $i .'">'.$i.'</a></li>';
+            }
+            // Nút next
+            if ($_GET['page'] < $maxPage) {
+                echo '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'] . "?typeID=$typeID&page=". ($_GET['page'] + 1) .'"><i class="fas fa-chevron-right"></i></a></li>';
+            }else{
+                echo '<li class="page-item disabled"><a class="page-link" href="'.$_SERVER['PHP_SELF'] . "?typeID=$typeID&page=". ($_GET['page'] + 1) .'"><i class="fas fa-chevron-right"></i></a></li>';
+            }
+        }
+        ?>
+        
+    </ul>
+</div>
+<!-- End pagination -->
 
 </div>
 <!-- The Modal Add Cart Success -->

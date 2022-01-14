@@ -174,15 +174,17 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
             </li>
             <!-- Review sản phẩm -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReview" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="review_list.php">
                     <i class="fas fa-fw fa-star"></i>
-                    <span>Đánh giá sản phẩm</span>
+                    <span>Danh sách đánh giá</span>
                 </a>
-                <div id="collapseReview" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Danh sách đánh giá</a>
-                    </div>
-                </div>
+            </li>
+            <!-- Khách hàng -->
+            <li class="nav-item">
+                <a class="nav-link" href="user_list.php">
+                    <i class="fas fa-users"></i>
+                    <span>Danh sách khách hàng</span>
+                </a>
             </li>
 
 
@@ -226,11 +228,11 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Hồ sơ cá nhân
-                                </a>
-                                <a class="dropdown-item" href="#">
+                                </a> -->
+                                <a class="dropdown-item" href="change-password.php">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Đổi mật khẩu
                                 </a>

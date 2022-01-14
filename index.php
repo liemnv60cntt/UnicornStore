@@ -64,7 +64,7 @@ include "./includes/header.php";
                     <input type="hidden" name="hidden_image" id="image<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['image_1'] ?>" />
                     <input type="hidden" name="hidden_remain" id="remain<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['productRemain'] ?>" />
                     <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_featured['productID'] ?>" value="<?php echo $result_featured['old_price'] ?>" />
-                    <button name="add_to_cart" id="<?php echo $result_featured['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <button name="add_to_cart" id="<?php echo $result_featured['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1 <?php if($result_featured['productRemain']==0) echo 'disabled' ?>"><i class='fas fa-cart-plus'></i></button>
                     <!-- Kết thúc thêm giỏ hàng -->
                 </div>
             </div>
@@ -123,7 +123,7 @@ include "./includes/header.php";
                     <input type="hidden" name="hidden_image" id="image<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['image_1'] ?>" />
                     <input type="hidden" name="hidden_remain" id="remain<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['productRemain'] ?>" />
                     <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_discount['productID'] ?>" value="<?php echo $result_discount['old_price'] ?>" />
-                    <button name="add_to_cart" id="<?php echo $result_discount['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <button name="add_to_cart" id="<?php echo $result_discount['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1 <?php if($result_discount['productRemain']==0) echo 'disabled' ?>"><i class='fas fa-cart-plus'></i></button>
                     <!-- Kết thúc thêm giỏ hàng -->
                 </div>
             </div>
@@ -182,7 +182,7 @@ include "./includes/header.php";
                     <input type="hidden" name="hidden_image" id="image<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['image_1'] ?>" />
                     <input type="hidden" name="hidden_remain" id="remain<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['productRemain'] ?>" />
                     <input type="hidden" name="hidden_price_old" id="price_old<?php echo $result_new['productID'] ?>" value="<?php echo $result_new['old_price'] ?>" />
-                    <button name="add_to_cart" id="<?php echo $result_new['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class='fas fa-cart-plus'></i></button>
+                    <button name="add_to_cart" id="<?php echo $result_new['productID'] ?>" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1 <?php if($result_new['productRemain']==0) echo 'disabled' ?>"><i class='fas fa-cart-plus'></i></button>
                     <!-- Kết thúc thêm giỏ hàng -->
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <?php
-$page_title = "Chi tiết";
+$page_title = "Chi tiết sản phẩm";
 include "./includes/header.php";
 ?>
 <?php
@@ -16,7 +16,7 @@ if ($details_prod) {
         <i class='fas fa-home text-primary'></i>
         <a href="index.php" class="text-decoration-none text-primary">Trang chủ</a>
         <i class='fas fa-chevron-right text-secondary' style="font-size: 12px;"></i>
-        <span class="text-dark">Giỏ hàng</span>
+        <span class="text-dark">Chi tiết sản phẩm</span>
     </div>
     <div class="row px-sm-3 shadow mb-3 pt-3" style="background-color: #FFF;border-radius: 0.5em;">
         <div class="col-md-4">
@@ -142,14 +142,19 @@ if ($details_prod) {
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="text-secondary">
-                        <?php echo $result_details['productRemain'] ?> sản phẩm có sẵn
+                    <td>
+                        <?php
+                        if($result_details['productRemain']>0)
+                            echo "<span class='text-secondary'>". $result_details['productRemain'] . " sản phẩm có sẵn</span>";
+                        else
+                            echo "<span class='text-danger'>Sản phẩm hết hàng</span>"
+                        ?>
                     </td>
                 </tr>
             </table>
             <div class="mt-2 mb-4">
-                <button class="btn btn-outline-primary mx-1 add_to_cart_from_detail" name="add_to_cart_from_detail" id="<?php echo $result_details['productID'] ?>"><i class='fas fa-cart-plus'></i> Thêm vào giỏ hàng</button>
-                <a href="cart_page.php" class="btn btn-primary mx-1 px-5 buy_now" name="buy_now" id="<?php echo $result_details['productID'] ?>">Mua ngay</a>
+                <button class="btn btn-outline-primary mx-1 add_to_cart_from_detail <?php if($result_details['productRemain']==0) echo 'disabled' ?>" name="add_to_cart_from_detail" id="<?php echo $result_details['productID'] ?>"><i class='fas fa-cart-plus'></i> Thêm vào giỏ hàng</button>
+                <a href="cart_page.php" class="btn btn-primary mx-1 px-5 buy_now <?php if($result_details['productRemain']==0) echo 'disabled' ?>" name="buy_now" id="<?php echo $result_details['productID'] ?>">Mua ngay</a>
                 <!-- <button class="btn btn-primary mx-1 px-5">Mua ngay</button> -->
             </div>
             <span class="text-danger <?php if ($result_details['current_price'] <= 500000) echo 'd-none' ?>">
@@ -251,11 +256,11 @@ if ($details_prod) {
     </div>
     <!-- Start Suggest Product -->
     <div class="row mb-5 py-3 px-md-5 px-1">
-        <h4>Sản phẩm gợi ý</h4>
+        <h3 class="text-center">Sản phẩm gợi ý</h4>
         <?php
         $get_suggest = $cate->get_product_by_cate($result_details['cateID']);
         $i = 0;
-        if ($get_suggest) {
+        if ($get_suggest && mysqli_num_rows($get_suggest)>1) {
             while ($result_suggest = $get_suggest->fetch_assoc()) {
                 if ($i <= 3) {
                     if ($result_suggest['productID'] != $result_details['productID']) {

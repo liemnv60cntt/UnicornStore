@@ -230,7 +230,7 @@ class Order
 	public function get_new_order_id()
 	{
 		$temp = [];
-		$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+		$permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$get_id = self::get_order_id();
 		if ($get_id) {
 			while($result = $get_id->fetch_assoc()){

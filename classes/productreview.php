@@ -5,12 +5,6 @@
 ?>
 
 <?php
-	$filepath = realpath(dirname(__FILE__));
-	include_once ($filepath.'/../lib/database.php');
-	include_once ($filepath.'/../helpers/format.php');
-?>
-
-<?php
 	/**
 	 * 
 	 */
@@ -49,7 +43,15 @@
 			$result = $this->db->select($query);
 			return $result;
 		}
-
+		public function get_all_review(){
+			$query = "SELECT product_review.*, customer.customerName, product.productName, product.image_1 
+			FROM product_review, customer, product 
+            WHERE product_review.customerID = customer.customerID 
+				AND product_review.productID = product.productID
+            ORDER BY reviewID DESC";
+			$result = $this->db->select($query);
+			return $result;
+		}
 		
 
 

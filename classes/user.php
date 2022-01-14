@@ -20,6 +20,11 @@
 			$this->db = new Database();
 			$this->fm = new Format();
 		}
+		public function get_all_users(){
+			$query = "SELECT * FROM customer ORDER BY customerID DESC";
+			$result = $this->db->select($query);
+			return $result;
+		}
 		public function get_users_by_email($email){
 			$email = mysqli_real_escape_string($this->db->link, $email);
 			$query = "SELECT * FROM customer WHERE email = '$email'";
@@ -129,8 +134,24 @@
 			else
 				return false;
 		}
-		
-		
+		public function update_admin_password($password, $id){
+			$password = mysqli_real_escape_string($this->db->link, $password);
+			$id = mysqli_real_escape_string($this->db->link, $id);
+			$query = "UPDATE admin SET adminPassword = '$password' WHERE adminID = '$id'";
+			$result = $this->db->update($query);
+			if($result)
+				return true;
+			else
+				return false;
+		}
+		public function get_admin_old_pw($id){
+			$query = "SELECT adminPassword FROM admin WHERE adminID = $id";
+			$result = $this->db->select($query);
+			if($result){
+				$get_pw = $result->fetch_assoc();
+				return $get_pw['adminPassword'];
+			}
+		}
 
 
 	}

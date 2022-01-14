@@ -7,6 +7,12 @@ class Format{
  public function formatDate($date){
     return date('F j, Y, g:i a', strtotime($date));
  }
+ public function formatDateNew($date){
+    return date('g:i A\, d-m-Y', strtotime($date));
+ }
+ public function formatDateReview($timestamp){
+    return date('g:i A\, d-m-Y', $timestamp);
+ }
  //Rút ngắn tiêu đề -> chuẩn SEO
  public function textShorten($text, $limit = 400){
     if(strlen($text) >= $limit){

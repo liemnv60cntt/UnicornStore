@@ -33,6 +33,8 @@ if ($wishlist_products) {
             $check_freeship = '';
         
         // Start fetch
+        $check_disabled = '';
+        if($result_prod['productRemain']==0) $check_disabled = 'disabled';
         $output .= '
         <div class="col-md-3 col-6 p-2">
         
@@ -66,7 +68,7 @@ if ($wishlist_products) {
                     <input type="hidden" name="hidden_image" id="image'. $result_wishlist['productID'] .'" value="'. $result_prod['image_1'] .'" />
                     <input type="hidden" name="hidden_remain" id="remain'. $result_wishlist['productID'] .'" value="'. $result_prod['productRemain'] .'" />
                     <input type="hidden" name="hidden_price_old" id="price_old'. $result_wishlist['productID'] .'" value="'. $result_prod['old_price'] .'" />
-                    <button name="add_to_cart" id="'. $result_wishlist['productID'] .'" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1"><i class="fas fa-cart-plus"></i></button>
+                    <button name="add_to_cart" id="'. $result_wishlist['productID'] .'" style="border-radius:0.5rem;" class="add_to_cart btn btn-warning float-end mt-1 '. $check_disabled.'"><i class="fas fa-cart-plus"></i></button>
                     <!-- Kết thúc thêm giỏ hàng -->
                 </div>
                 </div>

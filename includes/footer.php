@@ -6,10 +6,10 @@
         <div class="row">
           <div class="col-sm-4 col-6 text-center">
             <h5>Store &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-            <div class="text-start mx-auto" style="max-width: 10em;">
+            <div class="text-start mx-auto" style="max-width: 13em;">
               <i class='fas fa-store' style='font-size:15px'> Unicorn Store</i><br>
               <i class='fas fa-phone-alt' style='font-size:15px;'> 0967771211</i><br>
-              <i class='fas fa-envelope-open' style='font-size:15px'> unicorn@gmail.com</i>
+              <i class='fas fa-envelope-open' style='font-size:15px'> unicornstore512@gmail.com</i>
             </div>
           </div>
           <div class="col-sm-4 col-6 text-center">
