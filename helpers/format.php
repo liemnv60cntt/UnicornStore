@@ -1,65 +1,57 @@
 <?php
+
 /**
-* Format Class
-*/
-class Format{
+ * Format Class
+ */
+class Format
+{
 
- public function formatDate($date){
-    return date('F j, Y, g:i a', strtotime($date));
- }
- public function formatDateNew($date){
-    return date('g:i A\, d-m-Y', strtotime($date));
- }
- public function formatDateReview($timestamp){
-    return date('g:i A\, d-m-Y', $timestamp);
- }
- //Rút ngắn tiêu đề -> chuẩn SEO
- public function textShorten($text, $limit = 400){
-    if(strlen($text) >= $limit){
-        $text = $text. " ";
-        $text = substr($text, 0, $limit);
-        $text = substr($text, 0, strrpos($text, ' '));
-        $text = $text.".....";
-        return $text;
-    }else{
-        return $text;
+    public function formatDate($date)
+    {
+        return date('F j, Y, g:i a', strtotime($date));
     }
- }
-
- public function validation($data){
-    $data = trim($data);
-    $data = stripcslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
- }
-//Kiểm tra tên server
-public function title(){
-    $path = $_SERVER['SCRIPT_FILENAME'];
-    $title = basename($path, '.php');
-    //$title = str_replace('_', ' ', $title);
-    if ($title == 'index') {
-     $title = 'home';
-    }elseif ($title == 'contact') {
-     $title = 'contact';
+    public function formatDateNew($date)
+    {
+        return date('g:i A\, d-m-Y', strtotime($date));
     }
-    return $title = ucfirst($title);
-   }
-public function format_currency($n=0){
-        $n=(string)$n;
-        $n=strrev($n);
-        $res='';
-        for($i=0;$i<strlen($n);$i++){
-            if($i%3==0 && $i!=0){
-                $res.='.';
-            
-            }
-            $res.=$n[$i];
+    public function formatDateReview($timestamp)
+    {
+        return date('g:i A\, d-m-Y', $timestamp);
+    }
+    //Rút ngắn tiêu đề
+    public function textShorten($text, $limit = 400)
+    {
+        if (strlen($text) >= $limit) {
+            $text = $text . " ";
+            $text = substr($text, 0, $limit);
+            $text = substr($text, 0, strrpos($text, ' '));
+            $text = $text . ".....";
+            return $text;
+        } else {
+            return $text;
         }
-        $res=strrev($res);
+    }
+
+    public function validation($data)
+    {
+        $data = trim($data);
+        $data = stripcslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+    public function format_currency($n = 0)
+    {
+        $n = (string)$n;
+        $n = strrev($n);
+        $res = '';
+        for ($i = 0; $i < strlen($n); $i++) {
+            if ($i % 3 == 0 && $i != 0) {
+                $res .= '.';
+            }
+            $res .= $n[$i];
+        }
+        $res = strrev($res);
         return $res;
-    
-    
     }
 }
- 
-?>

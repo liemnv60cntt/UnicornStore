@@ -24,7 +24,8 @@ if ($get_order)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
     $orderStatus = $_POST['orderStatus'];
     $adminNote = $_POST['adminNote'];
-    $updateOrder = $odr->updateOrder($orderID, $orderStatus, $adminNote);
+    $deliveryDate = $_POST['deliveryDate'];
+    $updateOrder = $odr->updateOrder($orderID, $orderStatus, $adminNote, $deliveryDate);
 }
 ?>
 <div class="card shadow mb-4">
@@ -124,20 +125,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
                     </div>
                 </div>
                 <h6>Ghi chú:</h6>
-                <div class="row no-gutters">
+                <div class="row no-gutters mt-2">
                     <div class="col-lg-8">
-                        <input type="text" name="adminNote" class="form-control" placeholder="Nhập ghi chú gửi đến khách hàng" value=" <?php
-                                                                                                                                        if (isset($_POST['adminNote']))
-                                                                                                                                            echo $_POST['adminNote'];
-                                                                                                                                        else {
-                                                                                                                                            echo $result_order['adminNote'];
-                                                                                                                                        }
-                                                                                                                                        ?>">
+                        <input type="text" name="adminNote" class="form-control" placeholder="Nhập ghi chú gửi đến khách hàng" value="<?php if (isset($_POST['adminNote'])) echo $_POST['adminNote'];else {echo $result_order['adminNote'];}?>">
                     </div>
                     <div class="col-lg-4">
 
                     </div>
                 </div>
+                <div class="row no-gutters mt-2">
+                    <div class="col-lg-8">
+                        <label for="deliveryDate">Ngày giao hàng dự kiến:</label>
+                        <input type="date" name="deliveryDate" id="deliveryDate" class="form-control mb-2" value="<?php if (isset($_POST['deliveryDate'])) echo $_POST['deliveryDate']; elseif($result_order['deliveryDate']!=null) echo date("Y-m-d", strtotime($result_order['deliveryDate'])); ?>" min="2019-01-01" max="2030-12-31">                                                                                                           
+                    </div>
+                    <div class="col-lg-4">
+
+                    </div>
+                </div>
+                
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary btn-icon-split mx-2" type="submit" name="updateBtn">
                         <span class="icon text-white-50">

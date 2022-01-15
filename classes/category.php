@@ -86,7 +86,6 @@ class Category
 			return $alert;
 		}
 	}
-
 	public function get_product_by_cate($cateID)
 	{
 		$rowsPerPage = 4;
@@ -122,20 +121,6 @@ class Category
 			  	and product.typeID = product_type.typeID
 				and product_type.cateID = $cateID
 			  	order by brand.brandName asc";
-		$result = $this->db->select($query);
-		return $result;
-	}
-
-	public function show_category_fontend()
-	{
-		$query = "SELECT * FROM tbl_category order by catId desc";
-		$result = $this->db->select($query);
-		return $result;
-	}
-
-	public function get_name_by_cat($cateID)
-	{
-		$query = "SELECT tbl_product.*,tbl_category.cateName,tbl_category.catId FROM tbl_product,tbl_category WHERE tbl_product.catId=tbl_category.catId AND tbl_product.catId ='$cateID' LIMIT 1";
 		$result = $this->db->select($query);
 		return $result;
 	}

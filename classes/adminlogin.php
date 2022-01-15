@@ -28,13 +28,12 @@
 				$alert = "Tài khoản và mật khẩu không được để trống!";
 				return $alert;
 			}else{
-                $query = "SELECT * FROM admin WHERE adminUser = '$adminUser' AND adminPassword = '$adminPassword'";
+                $query = "SELECT * FROM admin 
+					WHERE adminUser = '$adminUser' AND adminPassword = '$adminPassword'";
 				$result = $this->db->select($query);
 
 				if($result != false){
-
 					$value = $result->fetch_assoc();
-
 					Session::set('adminlogin', true);
 					Session::set('adminID', $value['adminID']);
 					Session::set('adminUser', $value['adminUser']);

@@ -80,6 +80,10 @@ if ($orderID == '')
                                         </li>
                                     </ul>
                                     <h6 class="text-center"><?php
+                                        if($result['deliveryDate']!=null)
+                                            echo "Ngày giao hàng dự kiến: ".date('d-m-Y', strtotime($result['deliveryDate']));
+                                    ?></h6>
+                                    <h6 class="text-center"><?php
                                         $up_time = strtotime($result['updateTime']);
                                         echo "Lần cập nhật gần nhất: ".date('H:i, d-m-Y', $up_time);
                                     ?></h6>

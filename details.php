@@ -39,7 +39,7 @@ if ($details_prod) {
                 <!-- <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a> -->
 
-                <div class="row-detail justify-content-center d-flex">
+                <div class="row-detail justify-content-center d-flex mt-1">
                     <div class="column-detail">
                         <img class="demo cursor" src="./images/product_img/<?php echo $result_details['image_1'] ?>" onclick="currentSlide(1)" alt="...">
                     </div>

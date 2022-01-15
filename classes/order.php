@@ -328,10 +328,11 @@ class Order
 			}
 		}
 	}
-	public function updateOrder($orderID, $orderStatus, $adminNote)
+	public function updateOrder($orderID, $orderStatus, $adminNote, $deliveryDate)
 	{
 		$orderID = mysqli_real_escape_string($this->db->link, $orderID);
 		$adminNote = mysqli_real_escape_string($this->db->link, $adminNote);
+		$delivery_date = date("Y-m-d H:i:s", strtotime($deliveryDate));
 		$updateTime = date('Y-m-d H:i:s');
 		$alert = "";
 		if ($orderStatus == "") {
@@ -344,7 +345,7 @@ class Order
 			return $alert;
 		} else {
 			$query = "UPDATE orders 
-					SET orderStatus = '$orderStatus', adminNote = '$adminNote', updateTime = '$updateTime' 
+					SET orderStatus = '$orderStatus', adminNote = '$adminNote', updateTime = '$updateTime', deliveryDate = '$delivery_date' 
 					WHERE orderID = '$orderID'";
 			$result = $this->db->update($query);
 			if ($result) {
