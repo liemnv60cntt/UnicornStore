@@ -23,7 +23,8 @@ class Order
 	{
 		$year = date("Y");
 		$sum = 0;
-		$query = "SELECT * FROM `orders` WHERE orderStatus = '3' AND YEAR(updateTime) = $year";
+		$query = "SELECT * FROM `orders` 
+			WHERE orderStatus = '3' AND YEAR(updateTime) = $year";
 		$result = $this->db->select($query);
 		if($result){
 			while($rs = $result->fetch_assoc()){
@@ -36,7 +37,8 @@ class Order
 	{
 		$month = date("m");
 		$sum = 0;
-		$query = "SELECT * FROM `orders` WHERE orderStatus = '3' AND MONTH(updateTime) = $month";
+		$query = "SELECT * FROM `orders` 
+			WHERE orderStatus = '3' AND MONTH(updateTime) = $month";
 		$result = $this->db->select($query);
 		if($result){
 			while($rs = $result->fetch_assoc()){
@@ -379,8 +381,14 @@ class Order
 			$alert['error'] = 1;
 			return $alert;
 		} else {
-			$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote,orderDate,updateTime) 
-				VALUES('$orderID','$customerID','$orderPrice','$customerNote','$orderDate','$orderDate')";
+			$query_cus = "SELECT * FROM customer WHERE customerID = '$customerID'";
+			$result_cus = $this->db->select($query_cus);
+			if($result_cus)
+				$get_cus = $result_cus->fetch_assoc();
+			$customerPhone = $get_cus['phone'];
+			$deliveryAddress = $get_cus['address'] . ', ' . $get_cus['district'] . ', ' . $get_cus['city_province'];
+			$query = "INSERT INTO orders(orderID,customerID,orderPrice,customerNote,orderDate,updateTime, customerPhone, deliveryAddress) 
+				VALUES('$orderID','$customerID','$orderPrice','$customerNote','$orderDate','$orderDate', '$customerPhone', '$deliveryAddress')";
 			$result = $this->db->insert($query);
 			if ($result) {
 				$alert['mess'] = "<span class='text-success'>Đặt hàng thành công!</span>";

@@ -143,10 +143,16 @@ if ($orderID == '')
                             <div class="border-top border-2 p-0 mt-2 row g-0 py-1">
                                 <div class="col-md-8">
                                     <?php
+                                    echo "<span>
+                                        Địa chỉ nhận hàng: " . $result['deliveryAddress'] . "
+                                    </span><br>";
+                                    echo "<span>
+                                        SĐT người nhận hàng: " . $result['customerPhone'] . "
+                                    </span><br>";
                                     if ($result['customerNote'] != "")
                                         echo "<span>
                                                 Ghi chú: " . $result['customerNote'] . "
-                                            </span>"
+                                            </span>";
                                     ?>
                                 </div>
                                 <div class="col-md-4">

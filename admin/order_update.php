@@ -176,12 +176,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
                 </b>
             </span>
             <div>
-                <span>Số điện thoại:</span>
-                <b><?php echo $result_cus['phone'] ?></b>
+                <span>Số điện thoại nhận hàng:</span>
+                <b><?php echo $result_order['customerPhone'] ?></b>
             </div>
             <div>
                 <span>Địa chỉ nhận hàng:</span>
-                <b><?php echo $result_cus['address'] . ', '. $result_cus['district'] . ', ' . $result_cus['city_province'] ?></b>
+                <b><?php echo $result_order['deliveryAddress'] ?></b>
             </div>
         </div>
         <div class="mt-3">

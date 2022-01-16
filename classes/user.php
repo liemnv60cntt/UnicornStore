@@ -46,7 +46,8 @@
 			$code = mysqli_real_escape_string($this->db->link, $code);
 			$status = mysqli_real_escape_string($this->db->link, $status);
 			$fetch_code = mysqli_real_escape_string($this->db->link, $fetch_code);
-			$query = "UPDATE customer SET code = '$code', status = '$status' WHERE code = '$fetch_code'";
+			$query = "UPDATE customer SET code = '$code', status = '$status' 
+					WHERE code = '$fetch_code'";
 			$result = $this->db->update($query);
 			if($result)
 				return true;
@@ -105,7 +106,8 @@
 			$code = mysqli_real_escape_string($this->db->link, $code);
 			$password = mysqli_real_escape_string($this->db->link, $password);
 			$email = mysqli_real_escape_string($this->db->link, $email);
-			$query = "UPDATE customer SET code = $code, password = '$password' WHERE email = '$email'";
+			$query = "UPDATE customer SET code = $code, password = '$password'
+					 WHERE email = '$email'";
 			$result = $this->db->update($query);
 			if($result)
 				return true;

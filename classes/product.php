@@ -406,8 +406,6 @@ class Product
 			}
 		}
 	}
-
-
 	public function show_product()
 	{
 
@@ -424,8 +422,6 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-
-
 	public function delete_product($id)
 	{
 		$query = "DELETE FROM product where productID = '$id'";
@@ -438,7 +434,6 @@ class Product
 			return $alert;
 		}
 	}
-
 	//END BACKEND 
 	public function prod_status_convert($status)
 	{
@@ -507,8 +502,7 @@ class Product
 			INNER JOIN brand ON product.brandID = brand.brandID where product.productID = '$productID'";
 		$result = $this->db->select($query);
 		return $result;
-	}
-	
+	}	
 	public function get_details($id)
 	{
 		$query = "
@@ -725,16 +719,12 @@ class Product
 		$result = $this->db->select($query);
 		return $result;
 	}
-
-
 	public function get_all_product()
 	{
 		$query = "SELECT * FROM product";
 		$result = $this->db->select($query);
 		return $result;
 	}
-
-	
 	public function get_wishlist($customer_id)
 	{
 		$query = "SELECT * FROM wish_list WHERE customerID = '$customer_id' order by wishID desc";
