@@ -59,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateBtn'])) {
         <a href="./order_list.php" class="btn btn-outline-secondary mb-2">
             <i class="fas fa-arrow-left"></i> Quay lại
         </a>
+        <a href="./invoice.php?orderID=<?php echo $orderID ?>" class="btn btn-outline-primary mb-2">
+            <i class="fas fa-print"></i> Xuất hóa đơn
+        </a>
         <h5>Cập nhật đơn hàng:</h5>
         <?php
         if (isset($updateOrder))

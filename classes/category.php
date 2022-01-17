@@ -89,7 +89,7 @@ class Category
 	public function get_product_by_cate($cateID)
 	{
 		$rowsPerPage = 4;
-		if (!isset($_GET['page'])) {
+		if (!isset($_GET['page']) || $_GET['page']=='') {
 			$_GET['page'] = 1;
 		}
 		$offset = ($_GET['page'] - 1) * $rowsPerPage;

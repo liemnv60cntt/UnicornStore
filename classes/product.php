@@ -21,7 +21,7 @@ class Product
 	public function search_product($keyword)
 	{
 		$rowsPerPage = 4;
-		if (!isset($_GET['page'])) {
+		if (!isset($_GET['page']) || $_GET['page']=='') {
 			$_GET['page'] = 1;
 		}
 		$offset =($_GET['page']-1)*$rowsPerPage;
@@ -456,7 +456,7 @@ class Product
 	{
 
 		$rowsPerPage = 4;
-		if (!isset($_GET['page'])) {
+		if (!isset($_GET['page']) || $_GET['page']=='') {
 			$_GET['page'] = 1;
 		}
 		$offset =($_GET['page']-1)*$rowsPerPage;
